@@ -9,7 +9,8 @@ apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'io.projectreactor.ipc', name: 'reactor-netty'
 
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
     testCompile("org.springframework.boot:spring-boot-starter-test") {
