@@ -1,7 +1,10 @@
 plugins {
     id 'org.springframework.boot' version '2.0.4.RELEASE'
+    id 'com.github.kt3k.coveralls' version '2.8.2'
 }
 
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
 apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
@@ -11,5 +14,13 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
     }
 }
