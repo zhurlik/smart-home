@@ -1,4 +1,4 @@
 language: java
 
 after_success:
-- ./gradlew jacocoTestReport coveralls
+- ./gradlew udp-server:jacocoTestReport udp-server:coveralls
