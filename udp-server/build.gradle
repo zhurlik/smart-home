@@ -1,1 +1,15 @@
+plugins {
+    id 'org.springframework.boot' version '2.0.4.RELEASE'
+}
+
 apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: 'junit'
+    }
+}
