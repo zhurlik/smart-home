@@ -10,6 +10,9 @@ apply plugin: 'io.spring.dependency-management'
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 dependencies {

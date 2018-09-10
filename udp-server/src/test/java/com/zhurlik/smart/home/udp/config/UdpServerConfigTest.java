@@ -14,7 +14,7 @@ public class UdpServerConfigTest {
         final NettyContext nettyContext = config.udpServer(9999);
         assertNotNull(nettyContext);
 
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(5);
         nettyContext.dispose();
     }
 }
