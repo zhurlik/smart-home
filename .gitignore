@@ -70,6 +70,7 @@ hs_err_pid*
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+.idea/*
 
 # CMake
 cmake-build-*/
@@ -79,6 +80,8 @@ cmake-build-*/
 
 # File-based project format
 *.iws
+*.iml
+*.ipr
 
 # IntelliJ
 out/
