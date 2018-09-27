@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         }
 )
 @ActiveProfiles({"test"})
-public class ApplicationTest {
+class ApplicationTest {
 
     @Autowired
     private NettyContext netty;
