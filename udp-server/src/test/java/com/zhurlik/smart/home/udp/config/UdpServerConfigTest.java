@@ -11,7 +11,7 @@ class UdpServerConfigTest {
     private final UdpServerConfig config = new UdpServerConfig();
     @Test
     void testMain() throws Exception {
-        final NettyContext nettyContext = config.udpServer("127.0.0.1", 9999);
+        final NettyContext nettyContext = config.udpServer( 9999);
         assertNotNull(nettyContext);
 
         TimeUnit.SECONDS.sleep(5);
