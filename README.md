@@ -9,3 +9,5 @@ I gonna to build UDP server for handling Arduino Nano messages
 2. [TFTP Server](https://help.ubuntu.com/community/TFTP)
 3. [TFTP Ethernet bootloader for ATmega328P and ENC28J60](https://github.com/mitxela/kiloboot)
 4. [Gradle plugin for Arduino IDE](https://github.com/zhurlik/gradle-arduino-plugin)
+http://forum.arduino.cc/index.php?topic=172346.0
+https://github.com/arduino/Arduino
