@@ -1,0 +1,56 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'distribution'
+}
+
+distributions {
+    main {
+        baseName = 'bootloaders'
+        contents {
+            def network = [
+                    'server.ip': '192,168,100,3',
+                    'gateway.ip': '192,168,100,3',
+                    'subnetmask': '255,255,255,0',
+            ]
+
+            /**
+             * Bootloader for Arduino with MAC: a0-b1-c2-c2-a0-b1 and IP: 192.168.100.201
+             */
+            from('src/main/resources/kiloboot.asm') {
+                filter(ReplaceTokens, tokens: [
+                        'file.bin': '192-168-100-201.bin',
+                        'device.ip': '192,168,100,201',
+                        'mac.number.0': '0xa0',
+                        'mac.number.1': '0xb1',
+                        'mac.number.2': '0xc2',
+                        'mac.number.3': '0xc2',
+                        'mac.number.4': '0xa0',
+                        'mac.number.5': '0xb1'
+
+                ] + network)
+                filteringCharset = 'UTF-8'
+                rename 'kiloboot.asm', '192-168-100-201.asm'
+            }
+
+            /**
+             * Bootloader for Arduino with MAC: a0-b1-c2-c2-a0-c2 and IP: 192.168.100.202
+             */
+            from('src/main/resources/kiloboot.asm') {
+                filter(ReplaceTokens, tokens: [
+                        'file.bin': '192-168-100-202.bin',
+                        'device.ip': '192,168,100,202',
+                        'mac.number.0': '0xa0',
+                        'mac.number.1': '0xb1',
+                        'mac.number.2': '0xc2',
+                        'mac.number.3': '0xc2',
+                        'mac.number.4': '0xa0',
+                        'mac.number.5': '0xc2'
+
+                ] + network)
+                filteringCharset = 'UTF-8'
+                rename 'kiloboot.asm', '192-168-100-202.asm'
+            }
+        }
+    }
+}
