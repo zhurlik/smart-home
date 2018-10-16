@@ -21,12 +21,12 @@
 
 ; First byte of the MAC address must be an even number
 ; (LSB of MAC0 is a flag for "broadcast address")
-.equ myMAC0 = @mac.number.0@
-.equ myMAC1 = @mac.number.1@
-.equ myMAC2 = @mac.number.2@
-.equ myMAC3 = @mac.number.3@
-.equ myMAC4 = @mac.number.4@
-.equ myMAC5 = @mac.number.5@
+.equ myMAC0 = @mac.0@
+.equ myMAC1 = @mac.1@
+.equ myMAC2 = @mac.2@
+.equ myMAC3 = @mac.3@
+.equ myMAC4 = @mac.4@
+.equ myMAC5 = @mac.5@
 
 #define FILENAME "@file.bin@"
 #define MAX_REATTEMPTS 3
