@@ -10,7 +10,7 @@ distributions {
         contents {
             def network = [
                     'server.ip' : '192,168,100,3',
-                    'gateway.ip': '192,168,100,3',
+                    'gateway.ip': '192,168,100,1',
                     'subnetmask': '255,255,255,0',
             ]
 
