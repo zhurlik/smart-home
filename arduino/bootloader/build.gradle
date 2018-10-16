@@ -53,4 +53,8 @@ distributions {
             }
         }
     }
+
+    tasks.withType(Tar){
+        compression = Compression.GZIP
+    }
 }
