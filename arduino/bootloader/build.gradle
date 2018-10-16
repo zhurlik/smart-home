@@ -9,7 +9,7 @@ distributions {
         baseName = 'bootloaders'
         contents {
             def network = [
-                    'server.ip': '192,168,100,3',
+                    'server.ip' : '192,168,100,3',
                     'gateway.ip': '192,168,100,3',
                     'subnetmask': '255,255,255,0',
             ]
@@ -19,14 +19,14 @@ distributions {
              */
             from('src/main/resources/kiloboot.asm') {
                 filter(ReplaceTokens, tokens: [
-                        'file.bin': '192-168-100-201.bin',
+                        'file.bin' : '192-168-100-201.bin',
                         'device.ip': '192,168,100,201',
-                        'mac.0': '0xa0',
-                        'mac.1': '0xb1',
-                        'mac.2': '0xc2',
-                        'mac.3': '0xc2',
-                        'mac.4': '0xa0',
-                        'mac.5': '0xb1'
+                        'mac.0'    : '0xa0',
+                        'mac.1'    : '0xb1',
+                        'mac.2'    : '0xc2',
+                        'mac.3'    : '0xc2',
+                        'mac.4'    : '0xa0',
+                        'mac.5'    : '0xb1'
 
                 ] + network)
                 filteringCharset = 'UTF-8'
@@ -38,14 +38,14 @@ distributions {
              */
             from('src/main/resources/kiloboot.asm') {
                 filter(ReplaceTokens, tokens: [
-                        'file.bin': '192-168-100-202.bin',
+                        'file.bin' : '192-168-100-202.bin',
                         'device.ip': '192,168,100,202',
-                        'mac.0': '0xa0',
-                        'mac.1': '0xb1',
-                        'mac.2': '0xc2',
-                        'mac.3': '0xc2',
-                        'mac.4': '0xa0',
-                        'mac.5': '0xc2'
+                        'mac.0'    : '0xa0',
+                        'mac.1'    : '0xb1',
+                        'mac.2'    : '0xc2',
+                        'mac.3'    : '0xc2',
+                        'mac.4'    : '0xa0',
+                        'mac.5'    : '0xc2'
 
                 ] + network)
                 filteringCharset = 'UTF-8'
@@ -54,7 +54,7 @@ distributions {
         }
     }
 
-    tasks.withType(Tar){
+    tasks.withType(Tar) {
         compression = Compression.GZIP
     }
 }
