@@ -2,6 +2,8 @@
 This project uses `kiloboot.asm` from [kiloboot](https://github.com/mitxela/kiloboot) for building 
 1kB TFTP Ethernet bootloader for **ATmega328P** and **ENC28J60**  
 Arduino devices will get a sketch via network.
+# Wine & avrasm2.exe to compile a ASM file to HEX code
+`wine bin/avrasm2.exe -fI -I <folder_with_inc_files> <your_asm_file> -o <your_hex_file>`
 # Settings
 `kiloboot.asm` has a few lines with placeholders to be able to setup **Arduino device** in the intranet
 * **file.bin** - sketch file name that bootloader will download from **TFTP server**
