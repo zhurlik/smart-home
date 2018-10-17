@@ -66,7 +66,7 @@ task asmToHex(dependsOn: 'installDist') {
         fileTree('build/install/bootloaders-asm') {
             include '*.asm'
         }.files.each { asm ->
-            println ">> wine bin/avrasm2.exe -fI -I ./src/main/asm/m238pdef.inc build/install/bootloaders-asm/${asm.name} -o build/bootloaders-hex/${asm.name.replace('.asm', '.hex')}"
+            println ">> wine bin/avrasm2.exe -fI -I src/main/asm/m238pdef.inc build/install/bootloaders-asm/${asm.name} -o build/bootloaders-hex/${asm.name.replace('.asm', '.hex')}"
             exec {
                 commandLine 'wine', 'bin/avrasm2.exe',
                         '-fI', '-I', 'src/main/asm',
