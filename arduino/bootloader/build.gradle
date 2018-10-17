@@ -59,13 +59,10 @@ tasks.withType(Tar) {
     compression = Compression.GZIP
 }
 
-
 task asmToHex(dependsOn: 'installDist') {
     doLast {
         mkdir('build/bootloaders-hex')
-        fileTree('build/install/bootloaders-asm') {
-            include '*.asm'
-        }.files.each { asm ->
+        fileTree(dir: 'build/install/bootloaders-asm', include: '*.asm').files.each { asm ->
             println ">> wine bin/avrasm2.exe -fI -I src/main/asm/m238pdef.inc build/install/bootloaders-asm/${asm.name} -o build/bootloaders-hex/${asm.name.replace('.asm', '.hex')}"
             exec {
                 commandLine 'wine', 'bin/avrasm2.exe',
