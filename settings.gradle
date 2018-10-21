@@ -1,3 +1,4 @@
 include 'udp-server'
 include 'arduino:prototype'
 include 'arduino:bootloader'
+include 'arduino:ide'
