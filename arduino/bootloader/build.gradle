@@ -1,7 +1,9 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+import com.github.zhurlik.task.Avrdude
 
 plugins {
     id 'distribution'
+    id 'com.github.zhurlik.arduino' version '0.3'
 }
 
 distributions {
@@ -71,5 +73,26 @@ task asmToHex(dependsOn: 'installDist') {
                         '-o', "build/bootloaders-hex/${asm.name.replace('.asm', '.hex')}"
             }
         }
+    }
+}
+
+def hexDir = project.file("$buildDir/bootloaders-hex")
+
+// define task for avrdude
+project(':arduino:ide') {
+    task burn(type: Avrdude) {
+        onlyIf {
+            // should be passed via -Pkey=value
+            project.hasProperty('hex')
+        }
+        //-c avrispmkII -p m328p -U flash:w:"build/bootloaders-hex/192-168-100-201.hex":i -B10
+        options.addAll([
+                '-c', 'avrispmkII',
+                '-p', 'm328p',
+                '-U', "flash:w:${hexDir.path}/$hex:i",
+                '-B10'
+        ])
+
+        println ">> Avrdude Options: $options"
     }
 }
