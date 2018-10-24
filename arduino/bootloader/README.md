@@ -4,6 +4,8 @@ This project uses `kiloboot.asm` from [kiloboot](https://github.com/mitxela/kilo
 Arduino devices will get a sketch via network.
 # Wine & avrasm2.exe to compile a ASM file to HEX code
 `wine bin/avrasm2.exe -fI -I <folder_with_inc_files> <your_asm_file> -o <your_hex_file>`
+# Avrdude
+`avrdude -c avrispmkII -p m328p -U flash:w:"192-168-100-201.hex":i -B10`
 # Settings
 `kiloboot.asm` has a few lines with placeholders to be able to setup **Arduino device** in the intranet
 * **file.bin** - sketch file name that bootloader will download from **TFTP server**
