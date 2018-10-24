@@ -1,0 +1,15 @@
+import com.github.zhurlik.task.Compile
+
+plugins {
+    id 'com.github.zhurlik.arduino' version '0.3'
+}
+
+def sketchFile = file('src/arduino/main/main.ino')
+
+project(':arduino:ide') {
+    task compilePrototype(type: Compile) {
+        options.fqbn = 'arduino:avr:nano:cpu=atmega328old'
+        options.ideVersion = 10807
+        sketch = sketchFile
+    }
+}
