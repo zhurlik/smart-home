@@ -76,20 +76,27 @@ task asmToHex(dependsOn: 'installDist') {
     }
 }
 
-def hexDir = project.file("$buildDir/bootloaders-hex")
+evaluationDependsOn(':arduino:ide')
+
+// Arduino IDE
+ArduinoIde {
+    homeDir project(':arduino:ide').ArduinoIde.homeDir
+}
 
 // define task for avrdude
-project(':arduino:ide') {
-    task burn(type: Avrdude) {
-        onlyIf {
-            // should be passed via -Pkey=value
-            project.hasProperty('hex')
-        }
+task burn(type: Avrdude) {
+    onlyIf {
+        // should be passed via -Pkey=value
+        project.hasProperty('hex')
+    }
+
+    doFirst {
+        def hexDir = project.file("$buildDir/bootloaders-hex").path
         //-c avrispmkII -p m328p -U flash:w:"build/bootloaders-hex/192-168-100-201.hex":i -B10
         options.addAll([
                 '-c', 'avrispmkII',
                 '-p', 'm328p',
-                '-U', "flash:w:${hexDir.path}/$hex:i",
+                '-U', "flash:w:${hexDir}/$hex:i",
                 '-B10'
         ])
 

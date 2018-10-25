@@ -4,13 +4,16 @@ plugins {
     id 'com.github.zhurlik.arduino' version '0.3'
 }
 
+evaluationDependsOn(':arduino:ide')
 // Arduino IDE
 ArduinoIde {
     homeDir project(':arduino:ide').ArduinoIde.homeDir
 }
 
 task compilePrototype(type: Compile) {
-    options.fqbn = 'arduino:avr:nano:cpu=atmega328old'
-    options.ideVersion = 10807
-    sketch = file('src/arduino/main/main.ino')
+    doFirst {
+        options.fqbn = 'arduino:avr:nano:cpu=atmega328old'
+        options.ideVersion = 10807
+        sketch = file('src/arduino/main/main.ino')
+    }
 }
