@@ -9,5 +9,5 @@ ArduinoIde {
 }
 
 dependencies {
-    arduinoIde "arduino:linux64:${property('arduino.ide.version')}@tar.xz"
+    arduinoIde group: 'arduino', name: 'linux64', version: property('arduino.ide.version'), ext: 'tar.xz'
 }
