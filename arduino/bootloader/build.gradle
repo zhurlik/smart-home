@@ -3,7 +3,7 @@ import com.github.zhurlik.task.Avrdude
 
 plugins {
     id 'distribution'
-    id 'com.github.zhurlik.arduino' version '0.3'
+    id 'com.github.zhurlik.arduino'
 }
 
 distributions {

@@ -1,7 +1,7 @@
 import com.github.zhurlik.task.Compile
 
 plugins {
-    id 'com.github.zhurlik.arduino' version '0.3'
+    id 'com.github.zhurlik.arduino'
 }
 
 evaluationDependsOn(':arduino:ide')
