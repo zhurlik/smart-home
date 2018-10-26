@@ -1,13 +1,13 @@
 plugins {
-    id "com.github.zhurlik.arduino" version "0.3"
+    id 'com.github.zhurlik.arduino'
 }
 
 apply plugin: 'com.github.zhurlik.arduino'
 
 ArduinoIde {
-    homeDir "${projectDir}/arduino-1.8.7"
+    homeDir "${projectDir}/arduino-${property('arduino.ide.version')}"
 }
 
 dependencies {
-    arduinoIde 'arduino:linux64:1.8.7@tar.xz'
+    arduinoIde "arduino:linux64:${property('arduino.ide.version')}@tar.xz"
 }
