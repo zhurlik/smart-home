@@ -1,3 +1,15 @@
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.version == null) {
+                if (requested.id.id == 'com.github.zhurlik.arduino') {
+                    useVersion '0.3'
+                }
+            }
+        }
+    }
+}
+
 include 'udp-server'
 include 'arduino:prototype'
 include 'arduino:bootloader'
