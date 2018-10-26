@@ -4,11 +4,6 @@ plugins {
 
 apply plugin: 'com.github.zhurlik.arduino'
 
-project(':arduino:ide').extensions.each {
-    println '11111111111111111>  ' + it
-}
-
-
 ArduinoIde {
     homeDir "${projectDir}/arduino-1.8.7"
 }
