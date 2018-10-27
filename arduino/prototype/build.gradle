@@ -14,6 +14,7 @@ task compilePrototype(type: Compile) {
     doFirst {
         options.fqbn = 'arduino:avr:nano:cpu=atmega328old'
         options.ideVersion = 10807
+        options.verbose = true
         sketch = file('src/arduino/main/main.ino')
     }
 }
