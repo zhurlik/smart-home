@@ -16,6 +16,7 @@ test {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.0'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
