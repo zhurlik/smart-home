@@ -16,12 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author zhurlik@gmail.com
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(
-        classes = Application.class,
-        properties = {
-                "server.port=9999"
-        }
-)
+@SpringBootTest( classes = Application.class)
 @ActiveProfiles({"test"})
 class ApplicationTest {
 
