@@ -16,11 +16,16 @@ test {
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
-    compile group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.0'
+    compile group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.+'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.+'
 
+    // embedded activemq
+    testCompile group: 'org.apache.activemq.tooling', name: 'activemq-junit', version: '5.15.7'
+    testCompile group: 'org.apache.activemq', name: 'activemq-broker', version: '5.15.7'
+
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
     }
