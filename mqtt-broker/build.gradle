@@ -18,11 +18,18 @@ dependencies {
     activemq group: 'apache.org', name: 'apache-activemq', version: '5.15.7', ext: 'tar.gz'
 }
 
+def activeMQDir = file("$projectDir/apache-activemq-5.15.7")
+
 task install() {
+    onlyIf {
+        !activeMQDir.exists()
+    }
+
     doLast {
+        println "ActiveMQ will be installed..."
         final File dist = project.configurations['activemq'].files[0]
         exec {
-            commandLine 'tar', '-xzvf', dist.path, '-C', projectDir
+            commandLine 'tar', '-xzf', dist.path, '-C', projectDir
         }
     }
 }
@@ -30,7 +37,7 @@ task install() {
 task upMqtt() {
     doLast {
         exec {
-            commandLine './apache-activemq-5.15.7/bin/activemq', 'start'
+            commandLine "${activeMQDir.path}/bin/activemq", 'start'
         }
     }
 }
@@ -38,7 +45,9 @@ task upMqtt() {
 task stopMqtt() {
     doLast {
         exec {
-            commandLine './apache-activemq-5.15.7/bin/activemq', 'stop'
+            commandLine "${activeMQDir.path}/bin/activemq", 'stop'
         }
     }
 }
+
+upMqtt.dependsOn install
