@@ -19,7 +19,7 @@ public class ShutdownConfig {
     private IMqttAsyncClient mqttAsyncClient;
 
     @PreDestroy
-    private void closeMQttClient() throws MqttException {
+    public void closeMQttClient() throws MqttException {
         mqttAsyncClient.disconnect();
         mqttAsyncClient.close();
     }
