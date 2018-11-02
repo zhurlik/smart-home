@@ -45,6 +45,8 @@ class MqttConfigTest {
 
         // verify
         assertNotNull(mqttAsyncClient);
+        assertNotNull(mqttAsyncClient.getClientId());
+        assertEquals("tcp://localhost:1883", mqttAsyncClient.getServerURI());
         TimeUnit.SECONDS.sleep(2);
         mqttAsyncClient.close();
         verify(actionListener, times(0)).onSuccess(isA(IMqttToken.class));
