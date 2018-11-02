@@ -48,7 +48,7 @@ test {
     }
 }
 
-task integrationTest(type: Test) {
+task integrationTest(dependsOn: project(':mqtt-broker').tasks.upMqtt, type: Test) {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
@@ -63,7 +63,6 @@ task integrationTest(type: Test) {
 
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
-integrationTest.dependsOn project(':mqtt-broker').tasks.upMqtt
 integrationTest.finalizedBy project(':mqtt-broker').tasks.stopMqtt
 
 jacocoTestReport {

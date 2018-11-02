@@ -34,7 +34,7 @@ task install() {
     }
 }
 
-task upMqtt() {
+task upMqtt(dependsOn: install) {
     doLast {
         exec {
             commandLine "${activeMQDir.path}/bin/activemq", 'start'
@@ -49,5 +49,3 @@ task stopMqtt() {
         }
     }
 }
-
-upMqtt.dependsOn install
