@@ -27,14 +27,17 @@ public class MqttActionListener implements IMqttActionListener {
     @Override
     public void onSuccess(final IMqttToken asyncActionToken) {
         final IMqttAsyncClient mqttAsyncClient = asyncActionToken.getClient();
+        final boolean isConnected = mqttAsyncClient.isConnected();
 
-        LOGGER.debug("MQTT Client: {} is connected: {}", mqttAsyncClient.getClientId(), mqttAsyncClient.isConnected());
+        LOGGER.debug("MQTT Client: {} is connected: {}", mqttAsyncClient.getClientId(), isConnected);
 
-        try {
-            // TODO: extract topics into properties
-            mqttAsyncClient.subscribe("/test", 1, mqttMessageListener);
-        } catch (MqttException e) {
-            LOGGER.error("MQTT Error:", e);
+        if (isConnected) {
+            try {
+                // TODO: extract topics into properties
+                mqttAsyncClient.subscribe("/test", 1, mqttMessageListener);
+            } catch (MqttException e) {
+                LOGGER.error("MQTT Error:", e);
+            }
         }
     }
 
