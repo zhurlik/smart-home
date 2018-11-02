@@ -14,17 +14,12 @@ test {
     }
 }
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
     compile group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.+'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.+'
-    testCompile group: 'io.moquette', name: 'moquette-broker', version: '0.11'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
