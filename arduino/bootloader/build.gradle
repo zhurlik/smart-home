@@ -94,8 +94,9 @@ task burn(type: Avrdude) {
         def hexDir = project.file("$buildDir/bootloaders-hex").path
         //-c avrispmkII -p m328p -U flash:w:"build/bootloaders-hex/192-168-100-201.hex":i -B10
         options.addAll([
-                '-c', 'avrispmkII',
+                '-c', 'usbasp',
                 '-p', 'm328p',
+                '-P', 'usb',
                 '-U', "flash:w:${hexDir}/$hex:i",
                 '-B10'
         ])
