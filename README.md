@@ -7,7 +7,7 @@ A complex project that includes itself a few sub-projects: UDP server and Arduin
 # Gradle Sub Projects
 - **[mqtt-broker](./mqtt-broker)** - MQTT Broker based on ActiveMQ
 - **[mqtt-client](./mqtt-client)** - Spring Boot Application for handling MQTT messages
-- **[sphinx-app](./sphinx-app)** - Spring Boot Application
+- **[sphinx-app](./sphinx-app)** - Spring Boot Application for speech recognition
 - **[udp-server](./udp-server)** - Spring Boot Application that ups UDP server
 - **[arduino:ide](./arduino/ide)** - a gradle project based on [arduino plugin](https://github.com/zhurlik/gradle-arduino-plugin) for installing **Arduino Studio**
 - **[arduino:bootloader](./arduino/bootloader)** - a gradle project that makes bootloader for connecting **TFTP Server** with Arduino images
