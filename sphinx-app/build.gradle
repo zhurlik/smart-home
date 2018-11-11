@@ -26,6 +26,7 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+    testRuntime sphinx_ru
     implementation 'org.junit.jupiter:junit-jupiter-api'
 
     testCompile("org.springframework.boot:spring-boot-starter-test") {
