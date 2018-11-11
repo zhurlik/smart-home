@@ -1,6 +1,6 @@
 #JSGF V1.0;
 
-grammar com.zhurlik.smart.home.commands;
+grammar commands;
 
 <device> = свет | радио;
 <start> = хой | ой;
