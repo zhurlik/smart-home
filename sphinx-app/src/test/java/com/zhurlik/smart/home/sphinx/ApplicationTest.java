@@ -27,7 +27,6 @@ public class ApplicationTest {
     private Configuration sphinx;
 
     @Test
-    @Disabled("Should be moved to integration tests")
     void testMain() throws Exception {
         LiveSpeechRecognizer recognizer = new LiveSpeechRecognizer(sphinx);
         // Start recognition process pruning previously cached data.
