@@ -10,19 +10,11 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
-configurations {
-    sphinx_ru
-}
-
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
 
-    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
-    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
-    sphinx_ru files("${projectDir}/zero_ru_cont_8k_v3")
-
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version:'5prealpha-SNAPSHOT'
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version: '5prealpha-SNAPSHOT'
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version: '5prealpha-SNAPSHOT'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
@@ -48,8 +40,32 @@ test {
     }
 }
 
-idea {
-    module {
-        scopes.COMPILE.plus += [ configurations.sphinx_ru ]
+// https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
+// https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
+def ruTarGz = file("$projectDir/zero_ru_cont_8k_v3.tar.gz")
+
+task downloadRu() {
+    onlyIf {
+        !ruTarGz.exists()
+    }
+
+    doLast {
+        final String url = 'https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz'
+        println "Downloading $url"
+        exec {
+            commandLine 'wget', '--progress=dot:mega', url
+        }
+    }
+}
+
+task installRu(dependsOn: downloadRu) {
+    onlyIf {
+        ruTarGz.exists()
+    }
+    doLast {
+        println 'Installing Russian acoustic model and Russian langauge...'
+        exec {
+            commandLine 'tar', '-xzvf', 'zero_ru_cont_8k_v3.tar.gz'
+        }
     }
 }
