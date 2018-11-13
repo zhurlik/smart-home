@@ -26,6 +26,11 @@ public class ApplicationTest {
     @Autowired
     private Configuration sphinx;
 
+    //@BeforeAll
+    static void setUp() {
+        System.setProperty("javax.sound.sampled.TargetDataLine", "com.sun.media.sound.DirectAudioDeviceProvider#MS [plughw:2,0]");
+    }
+
     @Test
     void testMain() throws Exception {
         LiveSpeechRecognizer recognizer = new LiveSpeechRecognizer(sphinx);
