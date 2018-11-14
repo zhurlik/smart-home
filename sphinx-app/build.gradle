@@ -8,9 +8,34 @@ apply plugin: 'jacoco'
 
 repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+
+    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
+    ivy {
+        url 'https://kent.dl.sourceforge.net'
+        layout 'pattern', {
+            //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
+            artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]-[revision].[ext]'
+        }
+    }
+
+    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
+    ivy {
+        url 'https://kent.dl.sourceforge.net'
+        layout 'pattern', {
+            //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
+            artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]_[revision].[ext]'
+        }
+    }
+}
+
+configurations {
+    sphinx
 }
 
 dependencies {
+    sphinx group: 'cmusphinx', name: 'zero_ru_cont_8k', version: 'v3', ext: 'tar.gz'
+    //sphinx group: 'cmusphinx', name: 'cmusphinx-ru', version: '5.2', ext: 'tar.gz'
+
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
 
     compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version: '5prealpha-SNAPSHOT'
@@ -37,36 +62,22 @@ jacocoTestReport {
 test {
     useJUnitPlatform()
     testLogging {
+        exceptionFormat = 'full'
         events "passed", "skipped", "failed"
     }
 }
 
-// https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
-// https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
-def ruTarGz = file("$projectDir/zero_ru_cont_8k_v3.tar.gz")
-
-task downloadRu() {
+task installRu() {
     onlyIf {
-        !ruTarGz.exists()
+        !file("$projectDir/zero_ru_cont_8k_v3").exists()
     }
-
     doLast {
-        final String url = 'https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz'
-        println "Downloading $url"
+        final File ruTarGz = configurations.sphinx.files.find { it.name.contains('zero_ru_cont_8k') }
+        println '>> Installing Russian acoustic model and Russian language...'
         exec {
-            commandLine 'wget', '--progress=dot:mega', url
+            commandLine 'tar', '-xzvf', ruTarGz.path
         }
     }
 }
 
-task installRu(dependsOn: downloadRu) {
-    onlyIf {
-        ruTarGz.exists()
-    }
-    doLast {
-        println 'Installing Russian acoustic model and Russian langauge...'
-        exec {
-            commandLine 'tar', '-xzvf', 'zero_ru_cont_8k_v3.tar.gz'
-        }
-    }
-}
+tasks.test.dependsOn tasks.installRu
