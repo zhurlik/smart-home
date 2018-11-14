@@ -34,9 +34,6 @@ public class ApplicationTest {
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationTest.class);
 
     @Autowired
-    private ApplicationContext spring;
-
-    @Autowired
     private Configuration sphinx;
 
     @Value("file:${user.dir}/zero_ru_cont_8k_v3/decoder-test.wav")
