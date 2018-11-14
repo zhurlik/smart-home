@@ -33,7 +33,7 @@ public class SphinxConfigTest {
     @Autowired
     private Configuration sphinx;
 
-    @Value("${user.dir}/sphinx-app/zero_ru_cont_8k_v3/ru.lm")
+    @Value("${user.dir}/zero_ru_cont_8k_v3/ru.lm")
     private String expectedRuLm;
 
     @Test

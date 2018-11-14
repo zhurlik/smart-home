@@ -36,7 +36,7 @@ public class ApplicationTest {
     @Autowired
     private Configuration sphinx;
 
-    @Value("file:${user.dir}/sphinx-app/zero_ru_cont_8k_v3/decoder-test.wav")
+    @Value("file:${user.dir}/zero_ru_cont_8k_v3/decoder-test.wav")
     private Resource wav;
 
     //@BeforeAll
