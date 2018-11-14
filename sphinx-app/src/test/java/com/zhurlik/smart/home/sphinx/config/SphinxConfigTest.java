@@ -4,6 +4,7 @@ import edu.cmu.sphinx.api.Configuration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,13 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         "sphinx.use.grammar=true",
         "sphinx.grammar.path=test-grammar-path",
         "sphinx.acoustic.model.path=acoustic-test-path",
-        "sphinx.language.model.path=language-test-path",
         "sphinx.dictionary.path=test-dict"
 })
 public class SphinxConfigTest {
 
     @Autowired
     private Configuration sphinx;
+
+    @Value("${user.dir}/sphinx-app/zero_ru_cont_8k_v3/ru.lm")
+    private String expectedRuLm;
 
     @Test
     void testMain() {
@@ -40,7 +43,7 @@ public class SphinxConfigTest {
         assertEquals("smart-home", sphinx.getGrammarName());
         assertEquals("test-grammar-path", sphinx.getGrammarPath());
         assertEquals("acoustic-test-path", sphinx.getAcousticModelPath());
-        assertEquals("language-test-path", sphinx.getLanguageModelPath());
+        assertEquals(expectedRuLm, sphinx.getLanguageModelPath());
         assertEquals("test-dict", sphinx.getDictionaryPath());
         assertEquals(8000, sphinx.getSampleRate());
     }
