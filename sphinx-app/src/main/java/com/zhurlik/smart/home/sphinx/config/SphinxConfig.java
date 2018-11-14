@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SphinxConfig {
-    @Value("${sphinx.acoustic.model.path}")
+    @Value("${sphinx.acoustic.model.path:${user.dir}/sphinx-app/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000}")
     private String acousticModelPath;
 
     @Value("${sphinx.dictionary.path}")
     private String dictionaryPath;
 
-    @Value("${sphinx.language.model.path}")
+    @Value("${sphinx.language.model.path:${user.dir}/sphinx-app/zero_ru_cont_8k_v3/ru.lm}")
     private String languageModelPath;
 
     @Value("${sphinx.grammar.path}")
