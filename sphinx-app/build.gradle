@@ -78,3 +78,5 @@ task installRu() {
         }
     }
 }
+
+tasks.test.dependsOn tasks.installRu
