@@ -1,5 +1,6 @@
 package com.zhurlik.smart.home.sphinx.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,19 +11,40 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SphinxConfig {
+    @Value("${sphinx.acoustic.model.path}")
+    private String acousticModelPath;
+
+    @Value("${sphinx.dictionary.path}")
+    private String dictionaryPath;
+
+    @Value("${sphinx.language.model.path}")
+    private String languageModelPath;
+
+    @Value("${sphinx.grammar.path}")
+    private String grammarPath;
+
+    @Value("${sphinx.grammar.name:smart-home}")
+    private String grammarName;
+
+    @Value("${sphinx.use.grammar:false}")
+    private boolean useGrammar;
+
+    @Value("${sphinx.sample.rate:8000}")
+    private int sampleRate;
+
     @Bean
     public edu.cmu.sphinx.api.Configuration sphinx() {
         final edu.cmu.sphinx.api.Configuration conf = new edu.cmu.sphinx.api.Configuration();
-        // Set path to acoustic model.
-        conf.setAcousticModelPath("resource:/zero_ru.cd_cont_4000");
-        // Set path to dictionary.
-        conf.setDictionaryPath("resource:/sphinx/smart-home-ru.dic");
-        // Set language model.
-        conf.setLanguageModelPath("resource:/zero_ru.cd_cont_4000/ru.lm");
+        conf.setAcousticModelPath(acousticModelPath);
+        conf.setDictionaryPath(dictionaryPath);
+        conf.setLanguageModelPath(languageModelPath);
 
-        conf.setGrammarPath("resource:/sphinx");
-        conf.setGrammarName("smart-home");
-        conf.setUseGrammar(true);
+        if (useGrammar) {
+            conf.setGrammarPath(grammarPath);
+            conf.setGrammarName(grammarName);
+            conf.setUseGrammar(true);
+        }
+        conf.setSampleRate(sampleRate);
 
         return conf;
     }
