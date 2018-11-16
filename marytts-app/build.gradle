@@ -11,9 +11,11 @@ repositories {
     jcenter()
 }
 
+def maryttsDir = file("$projectDir/marytts")
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter'
     compile group: 'de.dfki.mary', name: 'marytts-lang-ru', version: '5.2'
+    compile fileTree(dir: "${maryttsDir.path}/lib", include: '*.jar')
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.+'
@@ -28,6 +30,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+    systemProperty 'mary.base', maryttsDir.path
 }
 
 jacocoTestReport {
@@ -35,5 +38,36 @@ jacocoTestReport {
         html.enabled = true
         xml.enabled = true
         csv.enabled = false
+    }
+}
+
+// https://github.com/marytts/voice-voxforge-ru-nsh/releases/download/v5.0-SNAPSHOT/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip
+def ruZip = file("$projectDir/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip")
+
+task downloadRu() {
+    onlyIf {
+        !ruZip.exists()
+    }
+
+    doLast {
+        final String url = 'https://github.com/marytts/voice-voxforge-ru-nsh/releases/download/v5.0-SNAPSHOT/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip'
+        println "Downloading $url"
+        exec {
+            commandLine 'wget', '--continue', '--progress=dot:mega', url
+        }
+    }
+}
+
+task installRu(dependsOn: downloadRu) {
+    onlyIf {
+        ruZip.exists()
+    }
+    doLast {
+        println 'Installing Russian langauge...'
+        mkdir(maryttsDir)
+        exec {
+            commandLine 'unzip', '-o', ruZip.path, '-d', maryttsDir.path
+        }
+        delete ruZip
     }
 }
