@@ -18,17 +18,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
 
+import static java.lang.Runtime.getRuntime;
+import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
 @TestPropertySource(properties = {
         "sphinx.use.grammar=true",
-        "sphinx.grammar.path=resource:/sphinx-test",
+        "sphinx.grammar.path=resource:/sphinx-test/zero_ru",
         "sphinx.grammar.name=smart-home-test",
-        "sphinx.dictionary.path=resource:/sphinx-test/smart-home-ru-test.dic"
+        "sphinx.dictionary.path=resource:/sphinx-test/zero_ru/smart-home-ru-test.dic"
 })
 public class ApplicationTest {
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationTest.class);
@@ -42,6 +44,21 @@ public class ApplicationTest {
     //@BeforeAll
     static void setUp() {
         System.setProperty("javax.sound.sampled.TargetDataLine", "com.sun.media.sound.DirectAudioDeviceProvider#MS [plughw:2,0]");
+    }
+
+    /**
+     * Says a russian text using festival.
+     *
+     * @param words
+     */
+    private void sayRu(final String words)  {
+        try {
+            final String command = format("echo '%s' | festival --language russian --tts", words);
+            final String[] cmd = { "/bin/sh", "-c", command };
+            final Process process = getRuntime().exec(cmd);
+        } catch (Exception ex) {
+            LOGGER.error(">> Error", ex);
+        }
     }
 
     @Test
@@ -68,7 +85,7 @@ public class ApplicationTest {
 
         boolean stop = false;
         while (!stop) {
-            TimeUnit.SECONDS.sleep(3);
+            SECONDS.sleep(3);
             SpeechResult result = recognizer.getResult();
             LOGGER.debug(">> You said:{}", result.getHypothesis());
         }
