@@ -26,6 +26,6 @@ function capture_start_signal() {
         find $NFS_FOLDER -name 'start-signal-*.wav' -mtime -1 -exec rm -f {} \;
     done
 }
-export -f wait_start
+export -f capture_start_signal
 
 capture_start_signal
