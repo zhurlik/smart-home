@@ -17,7 +17,13 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.format;
@@ -59,6 +65,48 @@ public class ApplicationTest {
         } catch (Exception ex) {
             LOGGER.error(">> Error", ex);
         }
+    }
+
+    @Test
+    void testInfinity() throws IOException {
+        final AtomicBoolean stop = new AtomicBoolean(false);
+
+        final PipedInputStream in = new PipedInputStream();
+        final PipedOutputStream out = new PipedOutputStream(in);
+
+        // 2 threads for reading audio streams (wav files) and stopping a process
+        final ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+        // reading a few times a wav file
+        executorService.submit(() -> {
+            while (!stop.get()) {
+                try (final InputStream fileIn = new BufferedInputStream(wav.getInputStream())){
+                     out.write(fileIn.readAllBytes());
+                } catch (IOException e) {
+                    LOGGER.error(">> Error during reading audio file:", e);
+                }
+            }
+        });
+
+        // 5 seconds
+        executorService.submit(() -> {
+            try {
+                SECONDS.sleep(5);
+                stop.set(true);
+                out.close();
+            } catch (InterruptedException | IOException ignored) {
+            }
+        });
+
+        final StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(sphinx);
+        recognizer.startRecognition(in);
+        SpeechResult result;
+
+        while ((result = recognizer.getResult()) != null) {
+            // should be: илья ильф евгений петров золотой телёнок
+            LOGGER.debug(">> You just have said:{}", result.getHypothesis());
+        }
+        recognizer.stopRecognition();
     }
 
     @Test
