@@ -3,7 +3,7 @@
 exec 1> >(logger -s -t $(basename $0)) 2>&1
 
 # interrupt recoding after # seconds
-WAITING=5
+WAITING=2
 
 # NFS folder where will be stored *.wav files
 NFS_FOLDER=/srv/nfs4/audio
@@ -16,14 +16,18 @@ echo "Going to capture audio per $WAITING"
 
 function capture_start_signal() {
     while [ true ]; do
-        # recording 10 times
-        for i in {1..10}
+        for i in {1..5}
         do
             arecord -f S16_LE -r 8000 -d $WAITING "$NFS_FOLDER/start-signal-$(date +%T).wav"
         done;
 
         # delete unneeded files
-        find $NFS_FOLDER -name 'start-signal-*.wav' -mtime -1 -exec rm -f {} \;
+        count_of_undeleted=$(find $NFS_FOLDER -name 'start-signal-*.wav' | wc -l)
+        if [ $count_of_undeleted -gt 10 ]; then
+            echo "Going to clean-up"
+            find $NFS_FOLDER -name 'start-signal-*.wav'
+            find $NFS_FOLDER -name 'start-signal-*.wav' -exec rm -f {} \;
+        fi
     done
 }
 export -f capture_start_signal
