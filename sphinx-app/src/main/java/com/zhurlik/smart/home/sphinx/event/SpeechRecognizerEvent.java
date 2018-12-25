@@ -22,6 +22,6 @@ public final class SpeechRecognizerEvent extends ApplicationEvent {
     }
 
     public enum Code {
-        STOP, START;
+        STOP, START
     }
 }

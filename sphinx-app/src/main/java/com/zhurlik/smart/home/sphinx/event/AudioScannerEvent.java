@@ -8,13 +8,19 @@ import org.springframework.context.ApplicationEvent;
  * @author zhurlik@gmail.com
  */
 public final class AudioScannerEvent extends ApplicationEvent {
-    public final static AudioScannerEvent FETCH = new AudioScannerEvent("Fetching Audio Files");
+    public final static AudioScannerEvent START = new AudioScannerEvent(Code.START);
+    public final static AudioScannerEvent STOP = new AudioScannerEvent(Code.STOP);
+
     /**
      * Create a new ApplicationEvent.
      *
-     * @param source the object on which the event initially occurred (never {@code null})
+     * @param code the object on which the event initially occurred (never {@code null})
      */
-    private AudioScannerEvent(final String source) {
-        super(source);
+    private AudioScannerEvent(final Code code) {
+        super(code);
+    }
+
+    public enum Code {
+        STOP, START
     }
 }
