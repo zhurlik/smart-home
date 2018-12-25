@@ -23,11 +23,12 @@ public class ApplicationListener {
     @EventListener
     public void up(final ContextRefreshedEvent event) {
         eventPublisher.publishEvent(SpeechRecognizerEvent.START);
-        eventPublisher.publishEvent(AudioScannerEvent.FETCH);
+        eventPublisher.publishEvent(AudioScannerEvent.START);
     }
 
     @EventListener
     public void down(final ContextClosedEvent event) {
+        eventPublisher.publishEvent(AudioScannerEvent.STOP);
         eventPublisher.publishEvent(SpeechRecognizerEvent.STOP);
     }
 }
