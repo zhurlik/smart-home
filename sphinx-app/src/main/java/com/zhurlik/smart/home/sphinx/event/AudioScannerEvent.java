@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEvent;
  *
  * @author zhurlik@gmail.com
  */
-public class AudioScannerEvent extends ApplicationEvent {
+public final class AudioScannerEvent extends ApplicationEvent {
     public final static AudioScannerEvent FETCH = new AudioScannerEvent("Fetching Audio Files");
     /**
      * Create a new ApplicationEvent.
