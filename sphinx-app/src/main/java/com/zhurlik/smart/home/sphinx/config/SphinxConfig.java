@@ -1,11 +1,16 @@
 package com.zhurlik.smart.home.sphinx.config;
 
+import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+
 /**
- * Settings for Sphinx.
+ * Settings for Sphinx and Speech Recognizer.
  *
  * @author zhurlik@gmail.com
  */
@@ -47,5 +52,20 @@ public class SphinxConfig {
         conf.setSampleRate(sampleRate);
 
         return conf;
+    }
+
+    @Bean
+    public  StreamSpeechRecognizer  streamSpeechRecognizer(final edu.cmu.sphinx.api.Configuration sphinx) throws IOException {
+        return new StreamSpeechRecognizer(sphinx);
+    }
+
+    @Bean
+    public PipedInputStream speechIn() {
+        return new PipedInputStream();
+    }
+
+    @Bean
+    public PipedOutputStream speechOut(final PipedInputStream in) throws IOException {
+        return new PipedOutputStream(in);
     }
 }
