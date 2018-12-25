@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,24 +62,14 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     private void scan() {
         while(!stop.get()) {
             try {
-                Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<Path>() {
+                Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<>() {
                     @Override
                     public FileVisitResult visitFile(final Path wav, final BasicFileAttributes attrs) {
                         if (wav.toString().endsWith(".wav")) {
                             LOGGER.debug(">> Wav file: {}", wav);
 
                             try (final InputStream is = new BufferedInputStream(new FileInputStream(wav.toFile()))) {
-
-                                final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                int nRead;
-                                final byte[] data = new byte[1024];
-                                while ((nRead = is.read(data, 0, data.length)) != -1) {
-                                    buffer.write(data, 0, nRead);
-                                }
-
-                                buffer.flush();
-                                final byte[] byteArray = buffer.toByteArray();
-                                speechOut.write(byteArray);
+                                speechOut.write(is.readAllBytes());
 
                                 final boolean isDeleted = wav.toFile().delete();
                                 LOGGER.debug(">> Audio file has been deleted: {}", isDeleted);
