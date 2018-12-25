@@ -63,7 +63,7 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     private void scan() {
         while(!stop.get()) {
             try {
-                Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<>(){
+                Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<Path>() {
                     @Override
                     public FileVisitResult visitFile(final Path wav, final BasicFileAttributes attrs) {
                         if (wav.toString().endsWith(".wav")) {
