@@ -2,11 +2,12 @@ package com.zhurlik.smart.home.sphinx.event;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class AudioScannerEventTest {
     @Test
     void testMain() {
-        assertEquals("Fetching Audio Files", AudioScannerEvent.FETCH.getSource());
+        assertSame(AudioScannerEvent.Code.START, AudioScannerEvent.START.getSource());
+        assertSame(AudioScannerEvent.Code.STOP, AudioScannerEvent.STOP.getSource());
     }
 }

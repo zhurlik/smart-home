@@ -30,7 +30,7 @@ class ApplicationListenerTest {
 
         // Then
         verify(eventPublisher).publishEvent(SpeechRecognizerEvent.START);
-        verify(eventPublisher).publishEvent(AudioScannerEvent.FETCH);
+        verify(eventPublisher).publishEvent(AudioScannerEvent.START);
     }
 
     @Test
@@ -39,6 +39,7 @@ class ApplicationListenerTest {
         listener.down(any(ContextClosedEvent.class));
 
         // Then
+        verify(eventPublisher).publishEvent(AudioScannerEvent.STOP);
         verify(eventPublisher).publishEvent(SpeechRecognizerEvent.STOP);
     }
 }
