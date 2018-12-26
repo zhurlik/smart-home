@@ -15,7 +15,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class AudioCaptureListenerTest {
@@ -40,6 +41,9 @@ class AudioCaptureListenerTest {
         TimeUnit.SECONDS.sleep(3);
 
         listener.onApplicationEvent(AudioScannerEvent.STOP);
-        assertEquals("first fake audio filesecond fake audio file", new String(in.readAllBytes()));
+        final String actual = new String(in.readAllBytes());
+        assertTrue(actual.contains("first fake audio file"));
+        assertTrue(actual.contains("second fake audio file"));
+        assertFalse(actual.contains("should be skipped"));
     }
 }
