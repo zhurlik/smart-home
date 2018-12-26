@@ -17,7 +17,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -39,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "sphinx.grammar.name=smart-home-test",
         "sphinx.dictionary.path=resource:/sphinx-test/zero_ru/smart-home-ru-test.dic"
 })
-public class ApplicationTest {
+class ApplicationTest {
     private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationTest.class);
 
     @Autowired
@@ -81,17 +80,8 @@ public class ApplicationTest {
         // reading a few times a wav file
         executorService.submit(() -> {
             while (!stop.get()) {
-                try (final InputStream is = wav.getInputStream()) {
-                    final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    int nRead;
-                    final byte[] data = new byte[1024];
-                    while ((nRead = is.read(data, 0, data.length)) != -1) {
-                        buffer.write(data, 0, nRead);
-                    }
-
-                    buffer.flush();
-                    final byte[] byteArray = buffer.toByteArray();
-                    out.write(byteArray);
+                try {
+                    out.write(wav.getInputStream().readAllBytes());
                 } catch (IOException e) {
                     LOGGER.error(">> Error during reading audio file:", e);
                 }
