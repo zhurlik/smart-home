@@ -11,10 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PipedOutputStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -22,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -62,27 +60,37 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     private void scan() {
         while(!stop.get()) {
             try {
+                TimeUnit.SECONDS.sleep(1);
                 Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<>() {
                     @Override
-                    public FileVisitResult visitFile(final Path wav, final BasicFileAttributes attrs) {
-                        if (wav.toString().endsWith(".wav")) {
-                            LOGGER.debug(">> Wav file: {}", wav);
-
-                            try (final InputStream is = new BufferedInputStream(new FileInputStream(wav.toFile()))) {
-                                speechOut.write(is.readAllBytes());
-
-                                final boolean isDeleted = wav.toFile().delete();
-                                LOGGER.debug(">> Audio file has been deleted: {}", isDeleted);
-                            } catch (Exception e) {
-                                LOGGER.error(">> Error during reading audio file:", e);
-                            }
-                        }
+                    public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs) {
+                        push(path);
 
                         return FileVisitResult.CONTINUE;
                     }
                 });
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.error(">> Something wrong with scanning", e);
+            }
+        }
+    }
+
+    /**
+     * Only path files should be sent to SpeechRecognizer.
+     *
+     * @param path audio file
+     */
+    private void push(final Path path) {
+        if (path.toString().endsWith(".wav")) {
+            LOGGER.debug(">> Wav file: {}", path);
+
+            try {
+                speechOut.write(Files.readAllBytes(path));
+
+                final boolean isDeleted = path.toFile().delete();
+                LOGGER.debug(">> Audio file has been deleted: {}", isDeleted);
+            } catch (IOException e) {
+                LOGGER.error(">> Error during reading audio file:", e);
             }
         }
     }
