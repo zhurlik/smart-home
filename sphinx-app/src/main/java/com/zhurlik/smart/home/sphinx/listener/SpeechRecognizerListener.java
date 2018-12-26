@@ -1,11 +1,13 @@
 package com.zhurlik.smart.home.sphinx.listener;
 
 import com.zhurlik.smart.home.sphinx.event.SpeechRecognizerEvent;
+import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.PipedInputStream;
@@ -27,6 +29,7 @@ public class SpeechRecognizerListener implements ApplicationListener<SpeechRecog
     @Autowired
     private PipedInputStream in;
 
+    @Async
     @Override
     public void onApplicationEvent(final SpeechRecognizerEvent event) {
         final Code code = (Code) event.getSource();
@@ -45,6 +48,11 @@ public class SpeechRecognizerListener implements ApplicationListener<SpeechRecog
     private void start() {
         LOGGER.debug(">> Starting Speech Recognizer...");
         streamSpeechRecognizer.startRecognition(in);
+        SpeechResult result;
+        while ((result = streamSpeechRecognizer.getResult()) != null) {
+            final String word = result.getHypothesis();
+            LOGGER.debug(">> You just have said:{}", word);
+        }
     }
 
     private void stop() {
