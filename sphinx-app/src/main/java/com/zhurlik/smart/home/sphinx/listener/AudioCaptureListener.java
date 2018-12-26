@@ -76,7 +76,7 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     }
 
     /**
-     * Only path files should be sent to SpeechRecognizer.
+     * Only wav files should be sent to SpeechRecognizer.
      *
      * @param path audio file
      */
