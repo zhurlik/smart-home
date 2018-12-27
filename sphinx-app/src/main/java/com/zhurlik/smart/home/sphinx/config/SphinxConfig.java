@@ -15,7 +15,7 @@ import java.io.PipedOutputStream;
  * @author zhurlik@gmail.com
  */
 @Configuration
-public final class SphinxConfig {
+public class SphinxConfig {
     @Value("${sphinx.acoustic.model.path:${user.dir}/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000}")
     private String acousticModelPath;
 
