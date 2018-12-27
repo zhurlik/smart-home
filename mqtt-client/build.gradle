@@ -55,7 +55,7 @@ task integrationTest(dependsOn: project(':mqtt-broker').tasks.upMqtt, type: Test
     }
 
     // So that Gradle knows where the integration test classes are:
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
 
     // So that Gradle knows which runtime class path to use:
     classpath = sourceSets.integrationTest.runtimeClasspath
