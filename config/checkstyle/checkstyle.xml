@@ -83,10 +83,12 @@
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
-            <property name="allowedAnnotations" value="Bean"/>
+            <property name="allowedAnnotations" value="Bean,EventListener"/>
             <property name="allowUndeclaredRTE" value="true"/>
         </module>
-        <module name="JavadocType"/>
+        <module name="JavadocType">
+            <property name="allowedAnnotations" value="ExtendWith"/>
+        </module>
         <module name="JavadocVariable">
             <property name="scope" value="public"/>
         </module>
@@ -155,7 +157,9 @@
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <module name="MagicNumber">
+
+        </module>
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>

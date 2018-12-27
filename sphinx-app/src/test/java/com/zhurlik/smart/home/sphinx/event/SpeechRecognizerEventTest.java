@@ -4,7 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class SpeechRecognizerEventTest {
+/**
+ * Unit tests.
+ */
+class SpeechRecognizerEventTest {
     @Test
     void testMain() {
         assertSame(SpeechRecognizerEvent.Code.START, SpeechRecognizerEvent.START.getSource());

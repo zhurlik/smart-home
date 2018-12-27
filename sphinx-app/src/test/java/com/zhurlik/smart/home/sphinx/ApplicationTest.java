@@ -39,7 +39,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         "sphinx.dictionary.path=resource:/sphinx-test/zero_ru/smart-home-ru-test.dic"
 })
 class ApplicationTest {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ApplicationTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationTest.class);
+    public static final int FIVE = 5;
+    public static final int THREE = 3;
 
     @Autowired
     private Configuration sphinx;
@@ -49,7 +51,8 @@ class ApplicationTest {
 
     //@BeforeAll
     static void setUp() {
-        System.setProperty("javax.sound.sampled.TargetDataLine", "com.sun.media.sound.DirectAudioDeviceProvider#MS [plughw:2,0]");
+        System.setProperty("javax.sound.sampled.TargetDataLine",
+                "com.sun.media.sound.DirectAudioDeviceProvider#MS [plughw:2,0]");
     }
 
     /**
@@ -57,10 +60,10 @@ class ApplicationTest {
      *
      * @param words
      */
-    private void sayRu(final String words)  {
+    private void sayRu(final String words) {
         try {
             final String command = format("echo '%s' | festival --language russian --tts", words);
-            final String[] cmd = { "/bin/sh", "-c", command };
+            final String[] cmd = {"/bin/sh", "-c", command};
             final Process process = getRuntime().exec(cmd);
         } catch (Exception ex) {
             LOGGER.error(">> Error", ex);
@@ -91,7 +94,7 @@ class ApplicationTest {
         // 5 seconds
         executorService.submit(() -> {
             try {
-                SECONDS.sleep(5);
+                SECONDS.sleep(FIVE);
                 stop.set(true);
                 out.close();
             } catch (InterruptedException | IOException ignored) {
@@ -112,7 +115,7 @@ class ApplicationTest {
     @Test
     void testWavFile() throws Exception {
         LOGGER.debug(">> Wav file: {}", wav);
-        try (final InputStream in = new BufferedInputStream(wav.getInputStream())) {
+        try (InputStream in = new BufferedInputStream(wav.getInputStream())) {
             final StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(sphinx);
             recognizer.startRecognition(in);
             SpeechResult result;
@@ -133,7 +136,7 @@ class ApplicationTest {
 
         boolean stop = false;
         while (!stop) {
-            SECONDS.sleep(3);
+            SECONDS.sleep(THREE);
             SpeechResult result = recognizer.getResult();
             LOGGER.debug(">> You said:{}", result.getHypothesis());
         }

@@ -38,7 +38,7 @@ class AudioCaptureListenerTest {
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> listener.onApplicationEvent(AudioScannerEvent.START));
 
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(2);
 
         listener.onApplicationEvent(AudioScannerEvent.STOP);
         final String actual = new String(in.readAllBytes());
