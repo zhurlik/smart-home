@@ -11,13 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication
 @EnableAsync
-public final class Application {
-
-    /**
-     * Protected constructor.
-     */
-    private Application() {
-    }
+public class Application {
 
     /**
      * Just for starting spring-boot app.
