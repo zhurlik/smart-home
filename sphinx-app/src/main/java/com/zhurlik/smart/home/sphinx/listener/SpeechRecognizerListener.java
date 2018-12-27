@@ -21,7 +21,7 @@ import static com.zhurlik.smart.home.sphinx.event.SpeechRecognizerEvent.Code;
  */
 @Component
 public class SpeechRecognizerListener implements ApplicationListener<SpeechRecognizerEvent> {
-    private final static Logger LOGGER = LoggerFactory.getLogger(SpeechRecognizerListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpeechRecognizerListener.class);
 
     @Autowired
     private StreamSpeechRecognizer streamSpeechRecognizer;
@@ -29,6 +29,11 @@ public class SpeechRecognizerListener implements ApplicationListener<SpeechRecog
     @Autowired
     private PipedInputStream in;
 
+    /**
+     * For handling Speech Recognizer events.
+     *
+     * @param event see SpeechRecognizerEvent
+     */
     @Async
     @Override
     public void onApplicationEvent(final SpeechRecognizerEvent event) {

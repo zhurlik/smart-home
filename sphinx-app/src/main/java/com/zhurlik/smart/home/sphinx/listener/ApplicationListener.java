@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author zhurlik@gmail.com
  */
 @Component
-public class ApplicationListener {
+public final class ApplicationListener {
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;

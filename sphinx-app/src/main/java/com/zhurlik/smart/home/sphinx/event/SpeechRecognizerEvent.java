@@ -9,8 +9,15 @@ import org.springframework.context.ApplicationEvent;
  * @author zhurlik@gmail.com
  */
 public final class SpeechRecognizerEvent extends ApplicationEvent {
-    public final static SpeechRecognizerEvent STOP = new SpeechRecognizerEvent(Code.STOP);
-    public final static SpeechRecognizerEvent START = new SpeechRecognizerEvent(Code.START);
+    /**
+     * Event for stopping Speech Recognizer.
+     */
+    public static final SpeechRecognizerEvent STOP = new SpeechRecognizerEvent(Code.STOP);
+
+    /**
+     * Event for starting Speech Recognizer.
+     */
+    public static final SpeechRecognizerEvent START = new SpeechRecognizerEvent(Code.START);
 
     /**
      * Create a new ApplicationEvent.
@@ -21,7 +28,19 @@ public final class SpeechRecognizerEvent extends ApplicationEvent {
         super(code);
     }
 
+    /**
+     * A set of codes to idetify events.
+     */
     public enum Code {
-        STOP, START
+
+        /**
+         * Stop.
+         */
+        STOP,
+
+        /**
+         * Start.
+         */
+        START
     }
 }

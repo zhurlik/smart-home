@@ -15,7 +15,7 @@ import java.io.PipedOutputStream;
  * @author zhurlik@gmail.com
  */
 @Configuration
-public class SphinxConfig {
+public final class SphinxConfig {
     @Value("${sphinx.acoustic.model.path:${user.dir}/zero_ru_cont_8k_v3/zero_ru.cd_cont_4000}")
     private String acousticModelPath;
 
@@ -55,7 +55,8 @@ public class SphinxConfig {
     }
 
     @Bean
-    public  StreamSpeechRecognizer  streamSpeechRecognizer(final edu.cmu.sphinx.api.Configuration sphinx) throws IOException {
+    public StreamSpeechRecognizer streamSpeechRecognizer(final edu.cmu.sphinx.api.Configuration sphinx)
+            throws IOException {
         return new StreamSpeechRecognizer(sphinx);
     }
 

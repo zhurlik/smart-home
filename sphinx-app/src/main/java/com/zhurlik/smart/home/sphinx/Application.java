@@ -11,8 +11,20 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication
 @EnableAsync
-public class Application {
+public final class Application {
 
+    /**
+     * Protected constructor.
+     */
+    private Application() {
+    }
+
+    /**
+     * Just for starting spring-boot app.
+     *
+     * @param args program argument
+     * @throws InterruptedException when issue with thread
+     */
     public static void main(final String[] args) throws InterruptedException {
         SpringApplication.run(Application.class, args);
         Thread.currentThread().join();

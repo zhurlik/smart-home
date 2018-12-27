@@ -8,8 +8,16 @@ import org.springframework.context.ApplicationEvent;
  * @author zhurlik@gmail.com
  */
 public final class AudioScannerEvent extends ApplicationEvent {
-    public final static AudioScannerEvent START = new AudioScannerEvent(Code.START);
-    public final static AudioScannerEvent STOP = new AudioScannerEvent(Code.STOP);
+
+    /**
+     * Event for starting scanning process.
+     */
+    public static final AudioScannerEvent START = new AudioScannerEvent(Code.START);
+
+    /**
+     * Event for stopping scanning process.
+     */
+    public static final AudioScannerEvent STOP = new AudioScannerEvent(Code.STOP);
 
     /**
      * Create a new ApplicationEvent.
@@ -20,7 +28,18 @@ public final class AudioScannerEvent extends ApplicationEvent {
         super(code);
     }
 
+    /**
+     * A set of codes to identify events.
+     */
     public enum Code {
-        STOP, START
+        /**
+         * Stop.
+         */
+        STOP,
+
+        /**
+         * Start.
+         */
+        START
     }
 }

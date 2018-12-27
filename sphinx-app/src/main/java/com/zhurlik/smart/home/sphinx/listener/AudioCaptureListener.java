@@ -24,14 +24,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Reads wav files as a stream in the shared folder and sends to SpeechRecognizer.
- *
+ * <p>
  * NOTE: there is async method with infinity looping.
  *
  * @author zhurlik@gmail.com
  */
 @Component
 public class AudioCaptureListener implements ApplicationListener<AudioScannerEvent> {
-    private final static Logger LOGGER = LoggerFactory.getLogger(AudioCaptureListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AudioCaptureListener.class);
 
     private final AtomicBoolean stop = new AtomicBoolean(false);
 
@@ -41,6 +41,11 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     @Autowired
     private PipedOutputStream speechOut;
 
+    /**
+     * Async method for handling Audio Capture events.
+     *
+     * @param event see {@link AudioScannerEvent}
+     */
     @Async
     @Override
     public void onApplicationEvent(final AudioScannerEvent event) {
@@ -58,7 +63,7 @@ public class AudioCaptureListener implements ApplicationListener<AudioScannerEve
     }
 
     private void scan() {
-        while(!stop.get()) {
+        while (!stop.get()) {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 Files.walkFileTree(Paths.get(audioCaptureDir.getURI()), new SimpleFileVisitor<>() {
