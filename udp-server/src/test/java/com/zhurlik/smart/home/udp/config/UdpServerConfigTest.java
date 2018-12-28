@@ -7,7 +7,11 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Unit tests.
+ */
 class UdpServerConfigTest {
+    private static final int SLEEP_FIVE = 5;
     private final UdpServerConfig config = new UdpServerConfig();
 
     @Test
@@ -15,7 +19,7 @@ class UdpServerConfigTest {
         final NettyContext nettyContext = config.udpServer("127.0.0.1", 9999);
         assertNotNull(nettyContext);
 
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(SLEEP_FIVE);
         nettyContext.dispose();
     }
 
@@ -24,7 +28,7 @@ class UdpServerConfigTest {
         final NettyContext nettyContext = config.udpServer(UdpServerConfig.BROADCAST, 9999);
         assertNotNull(nettyContext);
 
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(SLEEP_FIVE);
         nettyContext.dispose();
     }
 }

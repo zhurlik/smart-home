@@ -26,11 +26,12 @@ import java.util.Objects;
  */
 @Configuration
 public class UdpServerConfig {
-    private final static Logger LOGGER = LoggerFactory.getLogger(UdpServerConfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UdpServerConfig.class);
     static final String BROADCAST = "broadcast";
 
     @Bean
-    public NettyContext udpServer(final @Value("${server.address:broadcast}") String serverAddress,  final @Value("${server.port:8888}") int port) throws SocketException {
+    public NettyContext udpServer(final @Value("${server.address:broadcast}") String serverAddress,
+                                  final @Value("${server.port:8888}") int port) throws SocketException {
         LOGGER.info(">> Server port: {}", port);
         return UdpServer
                 .create(addressToListen(serverAddress), port)
@@ -39,14 +40,19 @@ public class UdpServerConfig {
     }
 
     private String addressToListen(final String serverAddress) throws SocketException {
-        final String addr = !BROADCAST.equals(serverAddress) ? serverAddress : Collections.list(NetworkInterface.getNetworkInterfaces())
-                .stream()
-                .flatMap(networkInterface -> networkInterface.getInterfaceAddresses().stream())
-                .map(InterfaceAddress::getBroadcast)
-                .filter(Objects::nonNull)
-                .findFirst()
-                .map(InetAddress::getHostAddress)
-                .orElse("127.0.0.1");
+        final String addr;
+        if (!BROADCAST.equals(serverAddress)) {
+            addr = serverAddress;
+        } else {
+            addr = Collections.list(NetworkInterface.getNetworkInterfaces())
+                    .stream()
+                    .flatMap(networkInterface -> networkInterface.getInterfaceAddresses().stream())
+                    .map(InterfaceAddress::getBroadcast)
+                    .filter(Objects::nonNull)
+                    .findFirst()
+                    .map(InetAddress::getHostAddress)
+                    .orElse("127.0.0.1");
+        }
 
         LOGGER.info(">> Server Address: {}", addr);
         return addr;
