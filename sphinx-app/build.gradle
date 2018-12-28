@@ -22,7 +22,7 @@ repositories {
     // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
     ivy {
         url 'https://kent.dl.sourceforge.net'
-        layout 'pattern', {
+        patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]-[revision].[ext]'
         }
