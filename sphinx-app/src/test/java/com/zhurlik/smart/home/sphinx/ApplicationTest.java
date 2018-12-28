@@ -64,7 +64,7 @@ class ApplicationTest {
         try {
             final String command = format("echo '%s' | festival --language russian --tts", words);
             final String[] cmd = {"/bin/sh", "-c", command};
-            final Process process = getRuntime().exec(cmd);
+            getRuntime().exec(cmd);
         } catch (Exception ex) {
             LOGGER.error(">> Error", ex);
         }
@@ -134,12 +134,12 @@ class ApplicationTest {
         // Start recognition process pruning previously cached data.
         recognizer.startRecognition(true);
 
-        boolean stop = false;
-        while (!stop) {
-            SECONDS.sleep(THREE);
-            SpeechResult result = recognizer.getResult();
-            LOGGER.debug(">> You said:{}", result.getHypothesis());
-        }
+//        boolean stop = false;
+//        while (!stop) {
+        SECONDS.sleep(THREE);
+        SpeechResult result = recognizer.getResult();
+        LOGGER.debug(">> You said:{}", result.getHypothesis());
+//        }
 
         // Pause recognition process. It can be resumed then with startRecognition(false).
         recognizer.stopRecognition();
