@@ -11,6 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
+    /**
+     * Just for starting spring-boot app.
+     *
+     * @param args program argument
+     * @throws InterruptedException when issue with thread
+     */
     public static void main(final String[] args) throws InterruptedException {
         SpringApplication.run(Application.class, args);
         Thread.currentThread().join();

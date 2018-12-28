@@ -19,7 +19,8 @@ import java.util.UUID;
 @Configuration
 public class MqttConfig {
 
-    private final static String MQTT_CLIENT_ID = UUID.randomUUID().toString();
+    private static final String MQTT_CLIENT_ID = UUID.randomUUID().toString();
+    static final int CONNECTION_TIMEOUT = 10;
 
     @Bean
     public MqttConnectOptions mqttConnectOptions() {
@@ -27,7 +28,7 @@ public class MqttConfig {
         final MqttConnectOptions options = new MqttConnectOptions();
         options.setAutomaticReconnect(true);
         options.setCleanSession(true);
-        options.setConnectionTimeout(10);
+        options.setConnectionTimeout(CONNECTION_TIMEOUT);
 
         return options;
     }

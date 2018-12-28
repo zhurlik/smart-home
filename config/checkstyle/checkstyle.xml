@@ -83,7 +83,7 @@
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
-            <property name="allowedAnnotations" value="Bean,EventListener"/>
+            <property name="allowedAnnotations" value="Bean,EventListener,PreDestroy,Override"/>
             <property name="allowUndeclaredRTE" value="true"/>
         </module>
         <module name="JavadocType">
@@ -154,7 +154,9 @@
         <module name="AvoidInlineConditionals"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+        <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
+        </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber">
@@ -167,7 +169,7 @@
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <module name="DesignForExtension">
-            <property name="ignoredAnnotations" value="Override, Test, Bean"/>
+            <property name="ignoredAnnotations" value="Override,Test,Bean,PreDestroy"/>
         </module>
         <module name="FinalClass"/>
         <!--<module name="HideUtilityClassConstructor"/>-->
@@ -178,7 +180,7 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
-        <module name="TodoComment"/>
+        <!--<module name="TodoComment"/>-->
         <module name="UpperEll"/>
 
     </module>

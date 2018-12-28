@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MqttMessageListener implements IMqttMessageListener {
-    private final static Logger LOGGER = LoggerFactory.getLogger(MqttMessageListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MqttMessageListener.class);
 
     @Override
     public void messageArrived(final String topic, final MqttMessage message) {

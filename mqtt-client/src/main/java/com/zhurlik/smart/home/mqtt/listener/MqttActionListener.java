@@ -16,10 +16,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MqttActionListener implements IMqttActionListener {
-    private final static Logger LOGGER = LoggerFactory.getLogger(MqttActionListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MqttActionListener.class);
 
     private final IMqttMessageListener mqttMessageListener;
 
+    /**
+     * Constructor.
+     *
+     * @param mqttMessageListener an instance of IMqttMessageListener
+     */
     public MqttActionListener(final IMqttMessageListener mqttMessageListener) {
         this.mqttMessageListener = mqttMessageListener;
     }

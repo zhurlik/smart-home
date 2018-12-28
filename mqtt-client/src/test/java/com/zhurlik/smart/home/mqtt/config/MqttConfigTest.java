@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.zhurlik.smart.home.mqtt.config.MqttConfig.CONNECTION_TIMEOUT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,7 +33,7 @@ class MqttConfigTest {
         final MqttConnectOptions connectOptions = mqttConfig.mqttConnectOptions();
         assertTrue(connectOptions.isAutomaticReconnect());
         assertTrue(connectOptions.isCleanSession());
-        assertEquals(10, connectOptions.getConnectionTimeout());
+        assertEquals(CONNECTION_TIMEOUT, connectOptions.getConnectionTimeout());
     }
 
     @Test
@@ -41,7 +42,8 @@ class MqttConfigTest {
         final IMqttActionListener actionListener = mock(IMqttActionListener.class);
 
         // call
-        final IMqttAsyncClient mqttAsyncClient = mqttConfig.mqttAsyncClient("tcp://localhost:1883", actionListener, connectOptions);
+        final IMqttAsyncClient mqttAsyncClient = mqttConfig.mqttAsyncClient("tcp://localhost:1883", actionListener,
+                connectOptions);
 
         // verify
         assertNotNull(mqttAsyncClient);

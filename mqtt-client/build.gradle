@@ -2,10 +2,15 @@ plugins {
     id 'org.springframework.boot'
     id 'com.github.kt3k.coveralls'
     id 'io.spring.dependency-management'
+    id 'checkstyle'
 }
 
 apply plugin: 'jacoco'
 apply plugin: 'java'
+
+checkstyle {
+    toolVersion = '8.15'
+}
 
 sourceSets {
     // So that we can place source code in 'src/integrationTest/java':
