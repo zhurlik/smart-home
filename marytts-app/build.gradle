@@ -3,6 +3,7 @@ plugins {
     id 'com.github.kt3k.coveralls'
     id 'io.spring.dependency-management'
     id 'checkstyle'
+    id 'com.github.spotbugs'
 }
 
 apply plugin: 'jacoco'
@@ -10,6 +11,10 @@ apply plugin: 'java'
 
 checkstyle {
     toolVersion = '8.15'
+}
+
+spotbugs {
+    toolVersion = '3.1.10'
 }
 
 repositories {
@@ -43,6 +48,14 @@ jacocoTestReport {
         html.enabled = true
         xml.enabled = true
         csv.enabled = false
+    }
+}
+
+// To generate an HTML report instead of XML
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
     }
 }
 
