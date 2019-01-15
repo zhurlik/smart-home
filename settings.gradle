@@ -10,7 +10,7 @@ pluginManagement {
 
                 // spring-boot
                 if (requested.id.id == 'org.springframework.boot') {
-                    useVersion '2.1.0.RELEASE'
+                    useVersion '2.1.2.RELEASE'
                 }
 
                 // spring-dependencies
