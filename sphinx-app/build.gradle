@@ -56,7 +56,7 @@ dependencies {
     testRuntime files("${projectDir}/zero_ru_cont_8k_v3")
     implementation 'org.junit.jupiter:junit-jupiter-api'
 
-    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.+'
+    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter'
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
     }

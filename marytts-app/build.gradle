@@ -28,7 +28,7 @@ dependencies {
     compile fileTree(dir: "${maryttsDir.path}/lib", include: '*.jar')
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.+'
+    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter'
     testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
