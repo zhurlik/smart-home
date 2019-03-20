@@ -1,7 +1,7 @@
 # /lib/systemd/system
 
 [Unit]
-Description=Smart-Home service for capture audio per $WAITING seconds
+Description=Smart-Home service for capture audio
 After=syslog.target
 
 [Service]
@@ -9,6 +9,9 @@ EnvironmentFile=/etc/smart-home-audio-capture.cfg
 User=zhurlik
 ExecStart=/usr/share/apps/smart-home/smart-home-audio-capture.sh
 SuccessExitStatus=143
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=smart-home-audio-capture
 
 [Install]
 WantedBy=multi-user.target
