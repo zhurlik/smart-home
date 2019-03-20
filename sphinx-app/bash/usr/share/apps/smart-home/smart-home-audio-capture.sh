@@ -1,7 +1,5 @@
 #!/bin/bash
 
-exec 1> >(logger -s -t $(basename $0)) 2>&1
-
 if [ ! -d "$NFS_FOLDER" ]; then
   echo "ERROR: $NFS_FOLDER doesn't exist"
   exit 1 # terminate and indicate error
