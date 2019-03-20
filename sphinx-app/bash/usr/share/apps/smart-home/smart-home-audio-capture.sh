@@ -2,11 +2,6 @@
 
 exec 1> >(logger -s -t $(basename $0)) 2>&1
 
-# interrupt recoding after # seconds
-WAITING=2
-
-# NFS folder where will be stored *.wav files
-NFS_FOLDER=/srv/nfs4/audio
 if [ ! -d "$NFS_FOLDER" ]; then
   echo "ERROR: $NFS_FOLDER doesn't exist"
   exit 1 # terminate and indicate error
