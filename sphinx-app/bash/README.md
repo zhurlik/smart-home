@@ -7,5 +7,5 @@ There is a systemd service that run these scripts periodically for grabbing audi
 For capturing audio every 2 seconds
 
 * **smart-home-clean-up-files.service**  
-Clean-up unneeded wave files after 15 seconds  
+Clean-up unneeded wave files after 30 seconds  
 
