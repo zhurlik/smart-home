@@ -1,5 +1,5 @@
 [Unit]
-Description=Clean wave files that were captured by smart-home service
+Description=Clean-up unneeded wave files under smart-home folder
 
 [Service]
 Restart=always
@@ -10,7 +10,6 @@ ExecStart=/usr/share/apps/smart-home/clean-up.sh
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=smart-home
-
 
 [Install]
 WantedBy=multi-user.target

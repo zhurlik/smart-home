@@ -1,7 +1,7 @@
 # /lib/systemd/system
 
 [Unit]
-Description=Smart-Home service for capture audio
+Description=Smart-Home service: capture audio via microphone to a wave file
 After=syslog.target
 
 [Service]
