@@ -8,4 +8,3 @@ For capturing audio every 2 seconds
 
 * **smart-home-clean-up-files.service**  
 Clean-up unneeded wave files after 30 seconds  
-
