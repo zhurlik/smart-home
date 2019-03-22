@@ -1,5 +1,7 @@
 [Unit]
 Description=Clean-up unneeded wave files under smart-home folder
+# See $NFS_FOLDER in the /etc/smart-home-audio-capture.cfg
+ConditionDirectoryNotEmpty=/srv/nfs4/audio
 
 [Service]
 Restart=always
