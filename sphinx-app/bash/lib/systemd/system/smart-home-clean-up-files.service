@@ -5,7 +5,7 @@ ConditionDirectoryNotEmpty=/srv/nfs4/audio
 
 [Service]
 Restart=always
-RestartSec=10
+RestartSec=15
 EnvironmentFile=/etc/smart-home-audio-capture.cfg
 User=zhurlik
 ExecStart=/usr/share/apps/smart-home/clean-up.sh
