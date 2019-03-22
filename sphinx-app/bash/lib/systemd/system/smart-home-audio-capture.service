@@ -5,10 +5,11 @@ Description=Smart-Home service for capture audio
 After=syslog.target
 
 [Service]
+# For looping
+Restart=on-success
 EnvironmentFile=/etc/smart-home-audio-capture.cfg
 User=zhurlik
 ExecStart=/usr/share/apps/smart-home/audio-capture.sh
-SuccessExitStatus=143
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=smart-home
