@@ -5,6 +5,7 @@
         missingok
         notifempty
         delaycompress
+	    size 100M
         compress
         postrotate
                 /usr/lib/rsyslog/rsyslog-rotate
