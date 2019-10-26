@@ -1,0 +1,64 @@
+repositories {
+    // https://nodejs.org/dist/v10.16.3/node-v10.16.3-linux-x64.tar.xz
+    ivy {
+        url 'https://nodejs.org/dist/'
+        patternLayout {
+            //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
+            artifact '/v[revision]/[organisation]-v[revision]-[module].[ext]'
+        }
+    }
+}
+
+configurations {
+    nodejs
+}
+
+dependencies {
+    nodejs group: 'node', name: project.'nodejs.platform', version: project.'nodejs.version', ext: 'tar.xz'
+}
+
+project.ext {
+    nodejs = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/node")
+    npm = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/npm")
+}
+
+task install() {
+    onlyIf {
+        !file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}").exists()
+    }
+
+    doLast {
+        println "Nodejs: ${project.'nodejs.version'} will be installed..."
+        final File dist = project.configurations['nodejs'].files[0]
+        exec {
+            commandLine 'tar', '-xf', dist.path, '-C', projectDir
+        }
+    }
+}
+
+subprojects {
+    task nodejs() {
+        doLast {
+            String typed = new Scanner(System.in).nextLine()
+            println ">> Executing: ${parent.nodejs} $typed"
+            exec {
+                commandLine parent.nodejs, typed
+                errorOutput = System.out
+                ignoreExitValue = true
+            }
+        }
+    }
+
+    task npm() {
+        doLast {
+            String typed = new Scanner(System.in).nextLine()
+            println ">> Executing: ${parent.npm} $typed"
+            exec {
+                println workingDir
+                commandLine parent.npm, typed
+                errorOutput = System.out
+                ignoreExitValue = true
+            }
+        }
+    }
+}
