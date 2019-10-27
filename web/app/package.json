@@ -1,0 +1,15 @@
+{
+  "name": "smart-web-app",
+  "version": "1.0.0",
+  "description": "Web application",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhurlik@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
