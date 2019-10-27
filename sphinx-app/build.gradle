@@ -19,18 +19,18 @@ spotbugs {
 repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 
-    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
+    // http://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
     ivy {
-        url 'https://kent.dl.sourceforge.net'
+        url 'http://kent.dl.sourceforge.net'
         patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]-[revision].[ext]'
         }
     }
 
-    // https://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
+    // http://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
     ivy {
-        url 'https://kent.dl.sourceforge.net'
+        url 'http://kent.dl.sourceforge.net'
         patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]_[revision].[ext]'
