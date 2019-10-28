@@ -17,13 +17,14 @@ module.exports = {
     devtool: "source-map",
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
+        hot: true,
         port: 9000
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                use: ["source-map-loader"],
+                use: ["source-map-loader"]
             }
         ]
     }
