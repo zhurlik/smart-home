@@ -7,10 +7,24 @@ module.exports = {
         filename: 'app.js',
         path: path.resolve(__dirname, 'dist')
     },
-
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Smart Home'
         })
-    ]
+    ],
+    // For development
+    mode: "development",
+    devtool: "source-map",
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        port: 9000
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: ["source-map-loader"],
+            }
+        ]
+    }
 };
