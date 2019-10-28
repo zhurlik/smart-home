@@ -20,6 +20,7 @@ dependencies {
 project.ext {
     nodejs = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/node")
     npm = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/npm")
+    npx = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/npx")
 }
 
 task install() {
@@ -36,26 +37,51 @@ task install() {
     }
 }
 
+/**
+ * To be able to use: nodejs, npm and npx tasks.
+ * The common pattern is:
+ *          ./gradlew web:app:{nodejs|npm|npx} <<<'run build'
+ */
 subprojects {
-    task nodejs() {
+    task nodejs(dependsOn: parent.tasks['install']) {
         doLast {
-            String typed = new Scanner(System.in).nextLine()
-            println ">> Executing: ${parent.nodejs} $typed"
+            def options = new Scanner(System.in).nextLine().split(' ')
+            println ">> Executing: ${parent.npm.path}"
+            println ">> Options $options"
             exec {
-                commandLine parent.nodejs, typed
+                println ">> Working Dir: $workingDir"
+                executable parent.nodejs.path
+                args options
                 errorOutput = System.out
                 ignoreExitValue = true
             }
         }
     }
 
-    task npm() {
+    task npm(dependsOn: parent.tasks['install']) {
         doLast {
-            String typed = new Scanner(System.in).nextLine()
-            println ">> Executing: ${parent.npm} $typed"
+            def options = new Scanner(System.in).nextLine().split(' ')
+            println ">> Executing: ${parent.npm.path}"
+            println ">> Options $options"
             exec {
-                println workingDir
-                commandLine parent.npm, typed
+                println ">> Working Dir: $workingDir"
+                executable parent.npm.path
+                args options
+                errorOutput = System.out
+                ignoreExitValue = true
+            }
+        }
+    }
+
+    task npx(dependsOn: parent.tasks['install']) {
+        doLast {
+            def options = new Scanner(System.in).nextLine().split(' ')
+            println ">> Executing: ${parent.npx.path}"
+            println ">> Options $options"
+            exec {
+                println ">> Working Dir: $workingDir"
+                executable parent.npx.path
+                args options
                 errorOutput = System.out
                 ignoreExitValue = true
             }
