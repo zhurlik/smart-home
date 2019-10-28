@@ -12,6 +12,9 @@ module.exports = {
             title: 'Smart Home'
         })
     ],
+    node: {
+        net: 'empty',
+    },
     // For development
     mode: "development",
     devtool: "source-map",
