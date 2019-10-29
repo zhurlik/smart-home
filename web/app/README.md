@@ -3,4 +3,4 @@
 # Run Webpack via npx
 `smart-home$ ./gradlew web:app:npx <<<'webpack --config webpack.config.js --colors'`
 # Run webpack-dev-server
-`smart-home$ ./gradlew web:app:npx <<<'webpack-dev-server --color'`
+`smart-home$ ./gradlew web:app:npx <<<'webpack-dev-server --colors'`
