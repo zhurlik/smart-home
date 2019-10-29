@@ -10,7 +10,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Smart Home'
+            title: 'Smart Home',
+            // Load a custom template (lodash by default)
+            template: './src/main/resources/assets/templates/index.html',
         }),
         new Dotenv(),
     ],
