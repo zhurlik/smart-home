@@ -1,5 +1,8 @@
 const Stomp = require('stompjs');
-const client = Stomp.client('ws://192.168.100.3:15674/ws');
+//ws://ip_address:15674/ws
+const client = Stomp.client(process.env.RABBITMQ_STOMP_ENDPOINT);
+
+console.log(`RabbitMQ STOMP endpoint: ${process.env.RABBITMQ_STOMP_ENDPOINT}`);
 
 let on_connect = function (x) {
     id = client.subscribe("/topic/test", function (d) {
