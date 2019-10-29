@@ -1,3 +1,4 @@
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -5,12 +6,13 @@ module.exports = {
     entry: './src/main/javascript/main.js',
     output: {
         filename: 'app.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Smart Home'
-        })
+        }),
+        new Dotenv(),
     ],
     node: {
         net: 'empty',
@@ -21,7 +23,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         hot: true,
-        port: 9000
+        port: 9000,
     },
     module: {
         rules: [
@@ -29,6 +31,6 @@ module.exports = {
                 test: /\.js$/,
                 use: ["source-map-loader"]
             }
-        ]
-    }
+        ],
+    },
 };
