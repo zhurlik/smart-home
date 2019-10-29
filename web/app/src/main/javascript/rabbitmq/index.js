@@ -10,19 +10,16 @@ module.exports = class RabbitMqClient {
         console.log(`RabbitMQ STOMP endpoint: ${endpoint}`);
         //ws://ip_address:15674/ws
         this.client = Stomp.client(endpoint);
-    }
 
-    connect() {
-        let on_connect = function (x) {
+        let on_connect = (x) => {
             let id = this.client.subscribe("/topic/test", function (d) {
                 console.log('>>' + d);
             });
         };
 
-        let on_error = function () {
+        let on_error = () => {
             console.log('>> Error');
         };
-
         this.client.connect('smart-home', 'smart-home', on_connect, on_error, '/');
     }
 };
