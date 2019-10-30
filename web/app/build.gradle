@@ -1,0 +1,13 @@
+plugins {
+    id 'idea'
+}
+
+idea {
+    module {
+        sourceDirs += file('src/main/javascript')
+        resourceDirs += file('src/main/resources')
+
+        testSourceDirs += file('src/test/javascript')
+        testResourceDirs += file('src/test/resources')
+    }
+}
