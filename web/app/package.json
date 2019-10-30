@@ -9,6 +9,10 @@
   "author": "zhurlik@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
     "dotenv-webpack": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
@@ -20,6 +24,8 @@
   "dependencies": {
     "@material-ui/core": "^4.5.2",
     "@material-ui/icons": "^4.5.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "stompjs": "^2.3.3"
   },
   "jest": {
