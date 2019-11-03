@@ -17,20 +17,15 @@ dependencies {
     nodejs group: 'node', name: project.'nodejs.platform', version: project.'nodejs.version', ext: 'tar.xz'
 }
 
-project.ext {
-    nodejs = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/node")
-    npm = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/npm")
-    npx = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}/bin/npx")
-}
-
+def nodeJsHome = file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}")
 task install() {
     onlyIf {
-        !file("$projectDir/node-v${project.'nodejs.version'}-${project.'nodejs.platform'}").exists()
+        !nodeJsHome.exists()
     }
 
     doLast {
         println "Nodejs: ${project.'nodejs.version'} will be installed..."
-        final File dist = project.configurations['nodejs'].files[0]
+        def dist = project.configurations.nodejs.files[0]
         exec {
             commandLine 'tar', '-xf', dist.path, '-C', projectDir
         }
@@ -43,47 +38,25 @@ task install() {
  *          ./gradlew web:app:{nodejs|npm|npx} <<<'run build'
  */
 subprojects {
-    task nodejs(dependsOn: parent.tasks['install']) {
-        doLast {
-            def options = new Scanner(System.in).nextLine().split(' ')
-            println ">> Executing: ${parent.npm.path}"
-            println ">> Options $options"
-            exec {
-                println ">> Working Dir: $workingDir"
-                executable parent.nodejs.path
-                args options
-                errorOutput = System.out
-                ignoreExitValue = true
-            }
-        }
-    }
+    // going through {nodejs|npm|npx}
+    fileTree(file("$nodeJsHome/bin")).files.each { f ->
+        // creates a new task under sub-projects
+        task "${f.name}"(dependsOn: parent.tasks['install']) {
+            group 'NodeJs'
+            description "To be able to use: ${f.path}"
 
-    task npm(dependsOn: parent.tasks['install']) {
-        doLast {
-            def options = new Scanner(System.in).nextLine().split(' ')
-            println ">> Executing: ${parent.npm.path}"
-            println ">> Options $options"
-            exec {
-                println ">> Working Dir: $workingDir"
-                executable parent.npm.path
-                args options
-                errorOutput = System.out
-                ignoreExitValue = true
-            }
-        }
-    }
-
-    task npx(dependsOn: parent.tasks['install']) {
-        doLast {
-            def options = new Scanner(System.in).nextLine().split(' ')
-            println ">> Executing: ${parent.npx.path}"
-            println ">> Options $options"
-            exec {
-                println ">> Working Dir: $workingDir"
-                executable parent.npx.path
-                args options
-                errorOutput = System.out
-                ignoreExitValue = true
+            doLast {
+                def options = new Scanner(System.in).nextLine().split(' ')
+                println ">> Executing: ${f.path}"
+                println ">> Options $options"
+                println ">> Working Dir: $projectDir"
+                exec {
+                    workingDir projectDir
+                    executable f.path
+                    args options
+                    errorOutput = System.out
+                    ignoreExitValue = true
+                }
             }
         }
     }
