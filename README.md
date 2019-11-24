@@ -12,6 +12,7 @@ A complex project that includes itself a few sub-projects: UDP server and Arduin
 - **[arduino:ide](./arduino/ide)** - a gradle project based on [arduino plugin](https://github.com/zhurlik/gradle-arduino-plugin) for installing **Arduino Studio**
 - **[arduino:bootloader](./arduino/bootloader)** - a gradle project that makes bootloader for connecting **TFTP Server** with Arduino images
 - **[arduino:*](./arduino)** - snippets and sketches for Arduino devices
+- **[web](./web)** - a web application that is based on the following **NodeJs** frameworks and libs: webpack, react, material-ui and stompjs
  
 # A couple of links
 1. [Arduino IDE](https://www.arduino.cc/en/Main/Software)
@@ -20,3 +21,4 @@ A complex project that includes itself a few sub-projects: UDP server and Arduin
 4. [Gradle plugin for Arduino IDE](https://github.com/zhurlik/gradle-arduino-plugin)
 http://forum.arduino.cc/index.php?topic=172346.0
 https://github.com/arduino/Arduino
+5. [Gradle+NodeJs without plugins](https://github.com/zhurlik/gradle-nodejs)
