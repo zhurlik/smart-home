@@ -31,33 +31,30 @@ suspendedCall = call => {
     });
 };
 
-onMessage = (data) => {
-    console.log('>> ' + data.body);
+/**
+ * For handling all messages too.
+ *
+ * @param callback a custom handler
+ */
+onAll = (callback) => {
+    return (data) => {
+        console.log('>> Incoming:' + data);
+        callback(data);
+    };
 };
 
-/**
- * A simple sender.
- *
- * TODO: make more flexible
- *
- * @param msg
- */
-module.exports.send = (msg) => {
-    let send = () => {
-        client.send('/topic/floor.1.light.1', {"content-type": "text/plain"}, msg);
+module.exports.send = (destination, headers, body) => {
+    let call = () => {
+        client.send(destination, headers, body);
     };
 
-    client.connected ? send() : suspendedCall(send);
+    client.connected ? call() : suspendedCall(call);
 };
 
-/**
- * A simple subscribe method with hardcoded topic.
- * TODO: make more flexible
- */
-module.exports.subscribe = () => {
-    let subscribe = () => {
-        client.subscribe('/topic/floor.1.light.1', onMessage);
+module.exports.subscribe = (destination, callback, headers = {}) => {
+    let call = () => {
+        client.subscribe(destination, onAll(callback), headers);
     };
 
-    client.connected ? subscribe() : suspendedCall(subscribe);
+    client.connected ? call() : suspendedCall(call);
 };

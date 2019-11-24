@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 
 function App() {
     // just for testing now
-    lights.on();
+    lights.to({name: "1"});
+    lights.to({name: "2"});
     return (
         <Button variant="contained" color="primary">
             Smart Home

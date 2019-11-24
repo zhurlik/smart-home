@@ -1,12 +1,23 @@
 const rabbitMqClient = require('../rabbitmq');
+const HEADERS = {"content-type": "text/plain"};
+const TOPIC = process.env.RABBITMQ_TOPIC_LIGHT;
 
-rabbitMqClient.subscribe();
+handler = (data) => {
+    console.log(`>> Lights: ${data.body}`);
+};
+
+// todo: headers ?
+rabbitMqClient.subscribe(TOPIC, handler);
 
 /**
- * TODO: make more flexible
+ * A wrapper for sending.
+ *
+ * @param msg
  */
-exports.on = function () {
-    console.log('Turn on a light!!!');
-    rabbitMqClient.send('{name: "1"}');
-    rabbitMqClient.send('{name: "2"}');
+send = (msg) => {
+    rabbitMqClient.send(TOPIC, HEADERS, JSON.stringify(msg));
+};
+
+exports.to = (msg) => {
+    send(msg);
 };
