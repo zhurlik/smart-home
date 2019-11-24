@@ -1,25 +1,63 @@
 const Stomp = require('stompjs');
 
+// See .env file
+const ENDPOINT = process.env.RABBITMQ_STOMP_ENDPOINT;
+const USER = process.env.RABBITMQ_USER;
+const PASSWORD = process.env.RABBITMQ_PASSWORD;
+
+const client = Stomp.client(ENDPOINT);
+// note: that's async call
+client.connect(USER, PASSWORD, (x) => {
+    console.log(`Connected to RabbitMQ STOMP endpoint: ${ENDPOINT}`);
+}, () => console.error(`There is a problem with: ${ENDPOINT}`), '/');
+
 /**
- * A simple client for sending/reading MQTT messages via STOMP protocol.
+ * The client should be connected to server.
  *
- * @type {RabbitMqClient}
+ * @param call either send or subscribe
  */
-module.exports = class RabbitMqClient {
-    constructor (endpoint = process.env.RABBITMQ_STOMP_ENDPOINT) {
-        console.log(`RabbitMQ STOMP endpoint: ${endpoint}`);
-        //ws://ip_address:15674/ws
-        this.client = Stomp.client(endpoint);
+suspendedCall = call => {
+    let attempt;
+    new Promise(resolve => {
+        attempt = setInterval(() => {
+            if (client.connected) {
+                resolve();
+            }
+        }, 1000);
+    }).then(value => {
+        clearInterval(attempt);
+        // recall
+        call();
+    });
+};
 
-        let on_connect = (x) => {
-            let id = this.client.subscribe("/topic/test", function (d) {
-                console.log('>>' + d);
-            });
-        };
+onMessage = (data) => {
+    console.log('>> ' + data.body);
+};
 
-        let on_error = () => {
-            console.log('>> Error');
-        };
-        this.client.connect('smart-home', 'smart-home', on_connect, on_error, '/');
-    }
+/**
+ * A simple sender.
+ *
+ * TODO: make more flexible
+ *
+ * @param msg
+ */
+module.exports.send = (msg) => {
+    let send = () => {
+        client.send('/topic/floor.1.light.1', {"content-type": "text/plain"}, msg);
+    };
+
+    client.connected ? send() : suspendedCall(send);
+};
+
+/**
+ * A simple subscribe method with hardcoded topic.
+ * TODO: make more flexible
+ */
+module.exports.subscribe = () => {
+    let subscribe = () => {
+        client.subscribe('/topic/floor.1.light.1', onMessage);
+    };
+
+    client.connected ? subscribe() : suspendedCall(subscribe);
 };
