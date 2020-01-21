@@ -1,4 +1,4 @@
-const rabbitMqClient = require('../rabbitmq');
+const rabbitMqClient = require('../rabbitmq/stomp');
 const HEADERS = {"content-type": "text/plain"};
 const TOPIC = process.env.RABBITMQ_TOPIC_LIGHT;
 
