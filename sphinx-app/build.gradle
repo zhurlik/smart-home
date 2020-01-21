@@ -1,19 +1,9 @@
 plugins {
+    id 'java'
     id 'org.springframework.boot'
-    id 'io.spring.dependency-management'
     id 'checkstyle'
     id 'com.github.spotbugs'
-}
-
-apply plugin: 'java'
-apply plugin: 'jacoco'
-
-checkstyle {
-    toolVersion = '8.15'
-}
-
-spotbugs {
-    toolVersion = '3.1.10'
+    id 'jacoco'
 }
 
 repositories {
@@ -46,18 +36,18 @@ dependencies {
     sphinx group: 'cmusphinx', name: 'zero_ru_cont_8k', version: 'v3', ext: 'tar.gz'
     //sphinx group: 'cmusphinx', name: 'cmusphinx-ru', version: '5.2', ext: 'tar.gz'
 
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
 
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version: '5prealpha-SNAPSHOT'
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version: '5prealpha-SNAPSHOT'
+    implementation group: 'edu.cmu.sphinx', name: 'sphinx4-core', version: '5prealpha-SNAPSHOT'
+    implementation group: 'edu.cmu.sphinx', name: 'sphinx4-data', version: '5prealpha-SNAPSHOT'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
-    testRuntime files("${projectDir}/zero_ru_cont_8k_v3")
-    implementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+    testRuntimeOnly files("${projectDir}/zero_ru_cont_8k_v3")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
 
-    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter'
-    testCompile("org.springframework.boot:spring-boot-starter-test") {
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter'
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
     }
 }

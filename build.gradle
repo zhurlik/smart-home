@@ -1,9 +1,26 @@
 allprojects {
     apply plugin: 'idea'
 
-    version =  '0.0.1'
+    version = '0.0.1'
 
     repositories {
         mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+    pluginManager.withPlugin('checkstyle') {
+        checkstyle {
+            // either sun_checks.xml or google_checks.xml
+            config = project.resources.text.fromArchiveEntry(configurations.checkstyle.files.find { it.name.contains('checkstyle-') }.path, 'google_checks.xml')
+        }
+    }
+
+    pluginManager.withPlugin('java') {
+        dependencies {
+            // import a BOM
+            implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootPluginVersion}")
+        }
     }
 }
