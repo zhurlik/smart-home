@@ -16,6 +16,10 @@ repositories {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]-[revision].[ext]'
         }
+        metadataSources {
+            artifact()
+            ignoreGradleMetadataRedirection()
+        }
     }
 
     // http://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
@@ -24,6 +28,10 @@ repositories {
         patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]_[revision].[ext]'
+        }
+        metadataSources {
+            artifact()
+            ignoreGradleMetadataRedirection()
         }
     }
 }

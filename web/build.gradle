@@ -6,6 +6,10 @@ repositories {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/v[revision]/[organisation]-v[revision]-[module].[ext]'
         }
+        metadataSources {
+            artifact()
+            ignoreGradleMetadataRedirection()
+        }
     }
 }
 
