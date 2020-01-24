@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot'
     id 'checkstyle'
+    id 'com.github.kt3k.coveralls'
     id 'com.github.spotbugs'
     id 'jacoco'
 }
@@ -11,7 +12,7 @@ repositories {
 
     // http://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/cmusphinx-ru-5.2.tar.gz
     ivy {
-        url 'http://kent.dl.sourceforge.net'
+        url 'https://kent.dl.sourceforge.net'
         patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]-[revision].[ext]'
@@ -24,7 +25,7 @@ repositories {
 
     // http://kent.dl.sourceforge.net/project/cmusphinx/Acoustic%20and%20Language%20Models/Russian/zero_ru_cont_8k_v3.tar.gz
     ivy {
-        url 'http://kent.dl.sourceforge.net'
+        url 'https://kent.dl.sourceforge.net'
         patternLayout {
             //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
             artifact '/project/[organisation]/Acoustic and Language Models/Russian/[module]_[revision].[ext]'
@@ -57,14 +58,6 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter'
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'junit'
-    }
-}
-
-jacocoTestReport {
-    reports {
-        html.enabled = true
-        xml.enabled = true
-        csv.enabled = false
     }
 }
 

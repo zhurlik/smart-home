@@ -13,7 +13,8 @@ subprojects {
     pluginManager.withPlugin('checkstyle') {
         checkstyle {
             // either sun_checks.xml or google_checks.xml
-            config = project.resources.text.fromArchiveEntry(configurations.checkstyle.files.find { it.name.contains('checkstyle-') }.path, 'google_checks.xml')
+            // project.resources.text.fromArchiveEntry(configurations.checkstyle.files.find { it.name.contains('checkstyle-') }.path, 'google_checks.xml')
+            config = project.resources.text.fromFile(project.rootProject.file('./config/checkstyle/checkstyle.xml'))
         }
     }
 
@@ -21,6 +22,16 @@ subprojects {
         dependencies {
             // import a BOM
             implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootPluginVersion}")
+        }
+    }
+
+    pluginManager.withPlugin('jacoco') {
+        jacocoTestReport {
+            reports {
+                html.enabled = true
+                xml.enabled = true
+                csv.enabled = false
+            }
         }
     }
 }
