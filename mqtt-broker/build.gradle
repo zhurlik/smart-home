@@ -52,3 +52,14 @@ task stopMqtt() {
         }
     }
 }
+
+task upDockers(type: Exec) {
+    // chmod +x
+    ant.chmod(dir: "$projectDir/src/main/shell", perm: '+x', includes: '*.sh')
+
+    // execute
+    executable './src/main/shell/up-rabbitmq-servers.sh'
+
+    errorOutput = System.out
+    ignoreExitValue = true
+}
