@@ -1,64 +1,16 @@
-repositories {
-    // http://www.apache.org/dist/activemq/5.15.9/apache-activemq-5.15.9-bin.tar.gz
-    ivy {
-        url 'https://www.apache.org/dist/'
-        patternLayout {
-            //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
-            artifact '/[organisation]/[revision]/[module]-[revision]-bin.[ext]'
-        }
-        metadataSources {
-            artifact()
-            ignoreGradleMetadataRedirection()
-        }
-    }
-}
-
-configurations {
-    activemq
-}
-
-dependencies {
-    activemq group: 'activemq', name: 'apache-activemq', version: '5.15.11', ext: 'tar.gz'
-}
-
-def activeMQDir = file("$projectDir/apache-activemq-5.15.11")
-
-task install() {
-    onlyIf {
-        !activeMQDir.exists()
-    }
-
-    doLast {
-        println "ActiveMQ will be installed..."
-        final File dist = project.configurations['activemq'].files[0]
-        exec {
-            commandLine 'tar', '-xzf', dist.path, '-C', projectDir
-        }
-    }
-}
-
-task upMqtt(dependsOn: install) {
-    doLast {
-        exec {
-            commandLine "${activeMQDir.path}/bin/activemq", 'start'
-        }
-    }
-}
-
-task stopMqtt() {
-    doLast {
-        exec {
-            commandLine "${activeMQDir.path}/bin/activemq", 'stop'
-        }
-    }
-}
-
-task upDockers(type: Exec) {
+task upDocker(type: Exec) {
     // chmod +x
     ant.chmod(dir: "$projectDir/src/main/shell", perm: '+x', includes: '*.sh')
 
     // execute
     executable './src/main/shell/up-rabbitmq-servers.sh'
+
+    errorOutput = System.out
+    ignoreExitValue = true
+}
+
+task stopDocker(type: Exec) {
+    commandLine 'docker', 'container', 'stop', 'test-rabbitmq-server'
 
     errorOutput = System.out
     ignoreExitValue = true
