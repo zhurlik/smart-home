@@ -42,7 +42,7 @@ public class MqttActionListenerTest {
         mqttActionListener.onSuccess(mqttToken);
 
         // verify
-        verify(mqttAsyncClient, times(1)).subscribe("/test", 1, mqttMessageListener);
+        verify(mqttAsyncClient, times(1)).subscribe("test", 1, mqttMessageListener);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class MqttActionListenerTest {
         mqttActionListener.onSuccess(mqttToken);
 
         // verify
-        verify(mqttAsyncClient, never()).subscribe("/test", 1, mqttMessageListener);
+        verify(mqttAsyncClient, never()).subscribe("test", 1, mqttMessageListener);
     }
 
     @Test

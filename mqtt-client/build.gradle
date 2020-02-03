@@ -48,7 +48,7 @@ test {
     }
 }
 
-task integrationTest(dependsOn: project(':mqtt-broker').tasks.upMqtt, type: Test) {
+task integrationTest(dependsOn: project(':mqtt-broker').tasks.upDocker, type: Test) {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
@@ -61,9 +61,14 @@ task integrationTest(dependsOn: project(':mqtt-broker').tasks.upMqtt, type: Test
     classpath = sourceSets.integrationTest.runtimeClasspath
 }
 
+// integration tests
 check.dependsOn integrationTest
 integrationTest.mustRunAfter test
-integrationTest.finalizedBy project(':mqtt-broker').tasks.stopMqtt
+integrationTest.finalizedBy project(':mqtt-broker').tasks.stopDocker
+
+// unit tests
+test.dependsOn project(':mqtt-broker').tasks.upDocker
+// test.finalizedBy project(':mqtt-broker').tasks.stopDocker
 
 // To generate an HTML report instead of XML
 tasks.withType(com.github.spotbugs.SpotBugsTask) {
