@@ -39,7 +39,7 @@ public class MqttActionListener implements IMqttActionListener {
         if (isConnected) {
             try {
                 // TODO: extract topics into properties
-                mqttAsyncClient.subscribe("/test", 1, mqttMessageListener);
+                mqttAsyncClient.subscribe("test", 1, mqttMessageListener);
             } catch (MqttException e) {
                 LOGGER.error("MQTT Error:", e);
             }
