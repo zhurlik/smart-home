@@ -9,8 +9,8 @@
   "author": "zhurlik@gmail.com",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.6.3",
     "babel-loader": "^8.0.6",
     "dotenv-webpack": "^1.7.0",
@@ -22,10 +22,15 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.8.3",
     "@material-ui/core": "^4.5.2",
     "@material-ui/icons": "^4.5.1",
+    "babel-jest": "^25.1.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "stompjs": "^2.3.3"
   },
   "jest": {
