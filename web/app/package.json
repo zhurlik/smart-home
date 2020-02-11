@@ -30,6 +30,7 @@
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
     "redux-thunk": "^2.3.0",
     "stompjs": "^2.3.3"
   },
