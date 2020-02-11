@@ -1,17 +1,10 @@
-import lights from './lights.js'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
+import {Provider} from 'react-redux'
+import store from "../redux/store";
+import LightButton from "./lightButton";
 
-function App() {
-    // just for testing now
-    lights.to({name: "1"});
-    lights.to({name: "2"});
-    return (
-        <Button variant="contained" color="primary">
-            Smart Home
-        </Button>
-    );
-}
-
-ReactDOM.render(<App />, document.querySelector('#app'));
+ReactDOM.render(
+    <Provider store={store}>
+        <LightButton/>
+    </Provider>, document.querySelector('#app'));
