@@ -13,6 +13,7 @@ module.exports = {
             title: 'Smart Home',
             // Load a custom template (lodash by default)
             template: './src/main/resources/assets/templates/index.html',
+            favicon: './src/main/resources/assets/favicon.ico'
         }),
         new Dotenv(),
     ],
