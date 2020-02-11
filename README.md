@@ -1,5 +1,10 @@
 # smart-home
-A complex project that includes itself a few sub-projects: UDP server and Arduino images
+This is a project that includes itself a few sub-projects. The main idea is to build the platform in the intranet based on the open-source projects. All components should work without internet connection.
+Here are a couple requirements for the system:
+- Sensor devices should communicate via UDP/MQTT
+- Arduino devices should be available via ethernet + POE + TFTP
+- Speech Recognition/Voice Commands should be in offline mode unlike Amazon/Google services
+- A simple UI (modern nodejs+react+ui-material)
 
 [![Build Status](https://travis-ci.org/zhurlik/smart-home.svg?branch=master)](https://travis-ci.org/zhurlik/smart-home)
 [![Coverage Status](https://coveralls.io/repos/github/zhurlik/smart-home/badge.svg?branch=master)](https://coveralls.io/github/zhurlik/smart-home?branch=master)
