@@ -30,13 +30,13 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-const ReduxButton = ({lightInStore, handleLightClick}) => (
+const UI = ({lightInStore, handleLightClick}) => (
     <Button variant="contained" color="primary" onClick={handleLightClick}>
         <WbIncandescentIcon/>
         {lightInStore}
     </Button>
 );
 
-const LightButton = connect(mapStateToProps, mapDispatchToProps)(ReduxButton);
+const LightButton = connect(mapStateToProps, mapDispatchToProps)(UI);
 
 export default LightButton;
