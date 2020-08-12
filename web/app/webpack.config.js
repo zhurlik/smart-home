@@ -27,6 +27,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         hot: true,
         port: 9000,
+        https: true
     },
     module: {
         rules: [
