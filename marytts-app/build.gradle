@@ -7,16 +7,40 @@ plugins {
     id 'jacoco'
 }
 
+repositories {
+    maven {
+        url 'http://ci.cimm2.com/artifactory/libs-release'
+        allowInsecureProtocol true
+    }
+    // https://github.com/marytts/voice-voxforge-ru-nsh/releases/download/v5.0-SNAPSHOT/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip
+    ivy {
+        url 'https://github.com'
+        patternLayout {
+            //This maps to the pattern: [organisation]:[module]:[revision]:[classifier]@[ext]
+            artifact '/[organisation]/[module]/releases/download/v[revision]/[module]-[revision].[ext]'
+        }
+        metadataSources {
+            artifact()
+            ignoreGradleMetadataRedirection()
+        }
+    }
+}
+
+configurations {
+    marytts
+}
+
 def maryttsDir = file("$projectDir/marytts")
 dependencies {
+    marytts group: 'marytts', name: 'voice-voxforge-ru-nsh', version: project.property('voice.voxforge.ru.nsh'), ext: 'zip'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
-    implementation group: 'de.dfki.mary', name: 'marytts-lang-ru', version: '5.2'
+    implementation group: 'de.dfki.mary', name: 'marytts-lang-ru', version: project.property('marytts.lang.ru')
     implementation fileTree(dir: "${maryttsDir.path}/lib", include: '*.jar')
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit'
     }
 }
@@ -30,37 +54,22 @@ test {
 }
 
 // To generate an HTML report instead of XML
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
+        html.outputLocation = file(layout.buildDirectory.dir('jacocoHtml'))
     }
 }
 
-// https://github.com/marytts/voice-voxforge-ru-nsh/releases/download/v5.0-SNAPSHOT/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip
-def ruZip = file("$projectDir/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip")
-
-task downloadRu() {
+task installRu() {
     onlyIf {
-        !ruZip.exists()
-    }
-
-    doLast {
-        final String url = 'https://github.com/marytts/voice-voxforge-ru-nsh/releases/download/v5.0-SNAPSHOT/voice-voxforge-ru-nsh-5.0-SNAPSHOT.zip'
-        println "Downloading $url"
-        exec {
-            commandLine 'wget', '--continue', '--progress=dot:mega', url
-        }
-    }
-}
-
-task installRu(dependsOn: downloadRu) {
-    onlyIf {
-        ruZip.exists()
+        !maryttsDir.exists()
     }
     doLast {
         println 'Installing Russian langauge...'
         mkdir(maryttsDir)
+        final File ruZip = configurations.marytts.files.find { it.name.contains('voice-voxforge-ru-nsh') }
         exec {
             commandLine 'unzip', '-o', ruZip.path, '-d', maryttsDir.path
         }
