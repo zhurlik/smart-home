@@ -28,12 +28,12 @@ pluginManagement {
 }
 
 include 'udp-server'
+include 'audio-capture'
 include 'arduino:prototype'
 include 'arduino:bootloader'
 include 'arduino:ide'
 include 'mqtt-broker'
 include 'mqtt-client'
 include 'marytts-app'
-include 'sphinx-app'
 include 'vosk-app'
 include 'web:app'

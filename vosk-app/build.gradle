@@ -1,6 +1,6 @@
 task upDocker(type: Exec) {
     // docker run -p 2700:2700 --rm alphacep/kaldi-ru:latest
-    commandLine 'docker', 'run', '--name', 'vosk-ru', '-d', '-p', '2700:2700', '--rm', 'alphacep/kaldi-ru:latest'
+    commandLine 'docker', 'run', '--name', 'vosk-ru', '-p', '2700:2700', '--rm', 'alphacep/kaldi-ru:latest'
 
     errorOutput = System.out
     ignoreExitValue = true

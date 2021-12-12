@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  vosk-ru:
+    image: alphacep/kaldi-ru:latest
+    ports:
+      - '2700:2700'
+    volumes:
+      - ./asr_server.py:/opt/vosk-server/websocket/asr_server.py

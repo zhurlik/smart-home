@@ -29,6 +29,8 @@ sourceSets {
     }
 }
 
+configurations.integrationTestImplementation.setCanBeResolved(true)
+
 dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
     implementation group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.+'
@@ -71,10 +73,11 @@ test.dependsOn project(':mqtt-broker').tasks.upDocker
 // test.finalizedBy project(':mqtt-broker').tasks.stopDocker
 
 // To generate an HTML report instead of XML
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
+        html.outputLocation = file(layout.buildDirectory.dir('jacocoHtml'))
     }
 }
 
@@ -82,6 +85,6 @@ idea {
     module {
         testSourceDirs += sourceSets.integrationTest.java.srcDirs
         testResourceDirs += sourceSets.integrationTest.resources.srcDirs
-        scopes.TEST.plus += [ configurations.integrationTestCompile ]
+        scopes.TEST.plus += [ configurations.integrationTestImplementation ]
     }
 }

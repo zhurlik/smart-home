@@ -1,5 +1,0 @@
-#JSGF V1.0 UTF-8;
-
-grammar tests;
-
-public <commands> = илья ильф евгений петров золотой телёнок;

@@ -1,8 +1,0 @@
-#JSGF V1.0 UTF-8;
-
-grammar com.zhurlik.smart.home.commands;
-
-<device> = свет | радио;
-<start> = хой | ой;
-
-public <commands> = раз | три | привет | два;

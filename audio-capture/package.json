@@ -1,0 +1,33 @@
+{
+  "name": "audio-capture",
+  "version": "1.0.0",
+  "description": "Nodejs app to capture/recognize audio, recognize to text and execute some command",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "/opt/node-v14.18.1-linux-x64/bin/node node_modules/.bin/jest",
+    "test:laptop": "NODE_ENV=laptop /opt/node-v14.18.1-linux-x64/bin/node node_modules/.bin/jest",
+    "vosk:up": "docker run -d --name vosk-ru -p 2700:2700 alphacep/kaldi-ru:latest",
+    "vosk:down": "docker stop vosk-ru && docker rm vosk-ru",
+    "prestart": "rm -rf dist",
+    "start": "babel-node src/main.js",
+    "start:laptop": "NODE_ENV=laptop babel-node --inspect  src/main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-jest": "^27.3.1",
+    "jest": "^27.3.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
+}

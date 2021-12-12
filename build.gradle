@@ -5,7 +5,16 @@ allprojects {
 
     repositories {
         mavenCentral()
-        jcenter()
+//        jcenter {
+//            content {
+//                content {
+//                    includeGroup("de.dfki.mary")
+//                    includeGroup("com.twmacinta")
+//                    includeGroup("gov.nist.math")
+//                    includeGroup("de.dfki.lt.jtok")
+//                }
+//            }
+//        }
     }
 }
 
@@ -19,6 +28,11 @@ subprojects {
     }
 
     pluginManager.withPlugin('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+        }
         dependencies {
             // import a BOM
             implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootPluginVersion}")
@@ -28,9 +42,9 @@ subprojects {
     pluginManager.withPlugin('jacoco') {
         jacocoTestReport {
             reports {
-                html.enabled = true
-                xml.enabled = true
-                csv.enabled = false
+                html.required = true
+                xml.required = true
+                csv.required = false
             }
         }
     }

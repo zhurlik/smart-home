@@ -1,1 +1,4 @@
-const componentApp = require('./component/app.jsx');
+import recorder from './audio/captureVoice.js';
+require('./component/app.jsx');
+
+recorder();

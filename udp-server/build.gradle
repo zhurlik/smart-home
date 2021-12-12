@@ -27,9 +27,10 @@ dependencies {
 }
 
 // To generate an HTML report instead of XML
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask) {
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
+        html.outputLocation = file(layout.buildDirectory.dir('jacocoHtml'))
     }
 }
