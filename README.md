@@ -26,4 +26,3 @@ Here are a couple requirements for the system:
 http://forum.arduino.cc/index.php?topic=172346.0
 https://github.com/arduino/Arduino
 5. [Gradle+NodeJs without plugins](https://github.com/zhurlik/gradle-nodejs)
-6. 
