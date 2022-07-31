@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "outDir": "./built",
+      "allowJs": true,
+      "target": "esnext",
+      "module": "ES2015",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "sourceMap": true,
+      "types": ["jest", "node"],
+    },
+    "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  }
